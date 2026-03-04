@@ -7,22 +7,13 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Only handle /api/* — everything else falls through to assets
+    // Only handle /api/content — everything else falls through to assets
     if (url.pathname === '/api/content') {
       try {
         return await handleContent(request, env);
       } catch (err) {
-        return jsonResponse({ error: err.message, bindings: { hasDB: !!env.DB, hasCACHE: !!env.CACHE } }, 500);
+        return jsonResponse({ error: err.message }, 500);
       }
-    }
-
-    // Debug endpoint to check bindings
-    if (url.pathname === '/api/debug') {
-      return jsonResponse({
-        hasDB: !!env.DB,
-        hasCACHE: !!env.CACHE,
-        envKeys: Object.keys(env),
-      });
     }
 
     // Return 404 for any other /api/ routes

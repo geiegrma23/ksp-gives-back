@@ -95,13 +95,16 @@ const SEED_STATEMENTS = [
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_text', 'KSP Gives Back is governed by an independent Board of Directors responsible for strategic oversight, fiduciary stewardship, and mission accountability. The Board ensures compliance with all legal and ethical requirements and provides oversight of finances, policies, and organizational strategy.\n\nDay-to-day operations are managed by an Executive Director, who implements board-approved policies and reports directly to the Board. This governance structure ensures transparency, accountability, and a clear separation between oversight and operations.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_title', 'Our Commitment'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_text', 'As a Veteran-led organization, KSP Gives Back is committed to honoring service, strengthening communities, and responsibly stewarding the resources entrusted to us by donors, partners, and supporters.'],
-  // Nav
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Home', '/', 1, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Events', '/events/', 2, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Testimonials', '/testimonials/', 3, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Financials', '/financials/', 4, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Gallery', '/gallery/', 5, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Contact', '/#contact', 6, 1],
+];
+
+const NAV_SEED = [
+  { label: 'Home', url: '/', visible: 1 },
+  { label: 'About', url: '/about/', visible: 1 },
+  { label: 'Events', url: '/events/', visible: 1 },
+  { label: 'Testimonials', url: '/testimonials/', visible: 1 },
+  { label: 'Financials', url: '/financials/', visible: 1 },
+  { label: 'Gallery', url: '/gallery/', visible: 1 },
+  { label: 'Contact', url: '/#contact', visible: 1 },
 ];
 
 export async function handleSetup(request, env) {
@@ -141,6 +144,21 @@ export async function handleSetup(request, env) {
       });
       await env.DB.batch(seedBatch);
       results.push('Seed: default content inserted');
+
+      // Nav seed — only if nav_items table is empty (prevents duplicates on re-run)
+      const navCount = await env.DB.prepare('SELECT COUNT(*) as c FROM nav_items').first();
+      if (!navCount || navCount.c === 0) {
+        const navStmt = env.DB.prepare(
+          `INSERT INTO nav_items (label, url, sort_order, visible, updated_at) VALUES (?, ?, ?, ?, datetime('now'))`
+        );
+        const navBatch = NAV_SEED.map((item, i) =>
+          navStmt.bind(item.label, item.url, i + 1, item.visible)
+        );
+        await env.DB.batch(navBatch);
+        results.push('Nav seed: default navigation inserted');
+      } else {
+        results.push('Nav seed: skipped (nav_items already has data)');
+      }
     }
 
     // Verify tables

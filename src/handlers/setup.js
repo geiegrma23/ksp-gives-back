@@ -11,6 +11,8 @@ const MIGRATIONS = [
   `ALTER TABLE events ADD COLUMN time_end TEXT`,
   `ALTER TABLE events ADD COLUMN image_url TEXT NOT NULL DEFAULT ''`,
   `ALTER TABLE events ADD COLUMN description TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE pages ADD COLUMN subtitle TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE pages ADD COLUMN image_url TEXT NOT NULL DEFAULT ''`,
 ];
 
 const SCHEMA_STATEMENTS = [

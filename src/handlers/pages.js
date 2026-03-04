@@ -70,9 +70,9 @@ async function handleCreate(request, env) {
   const slug = body.slug || slugify(body.title);
 
   const result = await env.DB.prepare(
-    `INSERT INTO pages (title, slug, body, status, created_at, updated_at)
-     VALUES (?, ?, ?, ?, datetime('now'), datetime('now'))`
-  ).bind(body.title, slug, body.body || '', body.status || 'draft').run();
+    `INSERT INTO pages (title, slug, subtitle, body, image_url, status, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`
+  ).bind(body.title, slug, body.subtitle || '', body.body || '', body.image_url || '', body.status || 'draft').run();
 
   const page = await env.DB.prepare('SELECT * FROM pages WHERE id = ?')
     .bind(result.meta.last_row_id).first();
@@ -89,11 +89,13 @@ async function handleUpdate(request, env, id) {
   if (!existing) return jsonResponse({ error: 'Not found' }, 404);
 
   await env.DB.prepare(
-    `UPDATE pages SET title=?, slug=?, body=?, status=?, updated_at=datetime('now') WHERE id=?`
+    `UPDATE pages SET title=?, slug=?, subtitle=?, body=?, image_url=?, status=?, updated_at=datetime('now') WHERE id=?`
   ).bind(
     body.title ?? existing.title,
     body.slug ?? existing.slug,
+    body.subtitle ?? existing.subtitle ?? '',
     body.body ?? existing.body,
+    body.image_url ?? existing.image_url ?? '',
     body.status ?? existing.status,
     id
   ).run();
@@ -119,11 +121,19 @@ function slugify(text) {
 }
 
 function renderPageHtml(page) {
-  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  const hasHtml = page.body && /<[a-z][\s\S]*>/i.test(page.body);
-  const bodyHtml = page.body
-    ? (hasHtml ? page.body : page.body.split('\n').map(p => p.trim() ? `<p>${esc(p)}</p>` : '').join(''))
+  const esc = s => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const bodyText = page.body || '';
+  const bodyHtml = bodyText
+    ? bodyText.split('\n').map(p => p.trim() ? `<p>${esc(p)}</p>` : '').join('')
     : '<p style="color:var(--steel);">This page is under construction.</p>';
+
+  const heroImage = page.image_url
+    ? `<div style="width:100%;max-height:400px;overflow:hidden;margin-bottom:0;">
+        <img src="/media/${esc(page.image_url)}" alt="${esc(page.title)}" style="width:100%;height:400px;object-fit:cover;display:block;">
+      </div>` : '';
+
+  const subtitleHtml = page.subtitle
+    ? `<p style="font-family:'Source Serif 4',serif;font-size:1.2rem;color:var(--steel);max-width:700px;margin:0 auto 2rem;">${esc(page.subtitle)}</p>` : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -137,13 +147,15 @@ function renderPageHtml(page) {
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  ${heroImage}
   <div class="page-header">
     <h1 class="section-title">${esc(page.title)}</h1>
     <div class="divider divider--center"></div>
   </div>
   <section style="padding:3rem 2rem 5rem;">
-    <div class="container" style="max-width:800px;margin:0 auto;">
-      <div style="color:var(--text-light);line-height:1.8;font-size:1.1rem;">
+    <div class="container" style="max-width:800px;margin:0 auto;text-align:center;">
+      ${subtitleHtml}
+      <div style="color:var(--text-light);line-height:1.8;font-size:1.1rem;text-align:left;">
         ${bodyHtml}
       </div>
     </div>

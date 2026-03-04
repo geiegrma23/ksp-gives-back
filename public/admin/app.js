@@ -199,6 +199,13 @@
       return;
     }
 
+    // Dynamic page sections (page-about, page-team, etc.)
+    if (currentView.startsWith('page-')) {
+      const slug = currentView.substring(5);
+      const page = pagesList.find(p => p.slug === slug);
+      if (page) { renderPageSection(page); return; }
+    }
+
     // Special sections
     switch (currentView) {
       case 'navigation': renderNavEditor(); break;
@@ -468,6 +475,9 @@
         });
         if (!res.ok) throw new Error('Save failed');
         navItems = await res.json();
+        // Refresh pages (nav save can auto-create page stubs)
+        await loadPages();
+        buildPagesSidebar();
         setStatus('Navigation saved', 'saved');
         setTimeout(() => setStatus(''), 3000);
       } catch (err) {
@@ -1265,7 +1275,7 @@
   }
 
   // ══════════════════════════════════════════════
-  //  PAGES CRUD
+  //  PAGES — Section-style editor for each page
   // ══════════════════════════════════════════════
 
   function renderPagesList() {
@@ -1273,11 +1283,11 @@
     el.className = 'editor-section';
     el.innerHTML = `
       <div class="section-header">
-        <h3>Pages</h3>
+        <h3>All Pages</h3>
         <button class="btn btn-add" id="addPageBtn">+ New Page</button>
       </div>
       <div class="section-body open">
-        <p style="margin-bottom:1rem;color:#666;">Pages are auto-created when you add navigation items. Edit content and publish them here.</p>
+        <p style="margin-bottom:1rem;color:#666;">Pages appear in the sidebar when created. Click one to edit its content — just like editing the homepage sections.</p>
         <div class="crud-list" id="pagesList"></div>
       </div>
     `;
@@ -1285,7 +1295,7 @@
 
     const list = el.querySelector('#pagesList');
     if (!pagesList.length) {
-      list.innerHTML = '<p class="empty-state">No pages yet. Add a navigation item or click "+ New Page".</p>';
+      list.innerHTML = '<p class="empty-state">No pages yet. Add a navigation item and it will auto-create a page for you.</p>';
     } else {
       pagesList.forEach(page => {
         const row = document.createElement('div');
@@ -1296,7 +1306,7 @@
             <span class="crud-row-meta">/${escapeHtml(page.slug)}/ &mdash; ${page.status === 'published' ? '<span style="color:#2e7d32">Published</span>' : '<span style="color:#999">Draft</span>'}</span>
           </div>
           <div class="crud-row-actions">
-            <button class="btn btn-small" data-edit-page="${page.id}">Edit</button>
+            <button class="btn btn-small" data-goto-page="${page.slug}">Edit</button>
             <button class="btn btn-small btn-danger" data-delete-page="${page.id}">Delete</button>
           </div>
         `;
@@ -1305,126 +1315,175 @@
     }
 
     el.querySelector('#addPageBtn').addEventListener('click', () => {
-      currentView = 'pages-edit';
-      renderView();
+      const title = prompt('Page title:');
+      if (!title) return;
+      const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      savePage(null, { title, slug, subtitle: '', body: '', image_url: '', status: 'draft' });
     });
 
-    el.querySelectorAll('[data-edit-page]').forEach(btn => {
+    el.querySelectorAll('[data-goto-page]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const id = parseInt(btn.dataset.editPage, 10);
-        const page = pagesList.find(p => p.id === id);
-        if (page) {
-          currentView = 'pages-edit';
-          renderView();
-          // Fill form
-          document.getElementById('pageTitle').value = page.title;
-          document.getElementById('pageSlug').value = page.slug;
-          document.getElementById('pageBody').value = page.body || '';
-          document.getElementById('pageStatus').checked = page.status === 'published';
-          document.getElementById('pageForm').dataset.editId = page.id;
-        }
+        currentView = 'page-' + btn.dataset.gotoPage;
+        renderView();
+        highlightSidebarItem(currentView);
       });
     });
 
     el.querySelectorAll('[data-delete-page]').forEach(btn => {
       btn.addEventListener('click', async () => {
         if (!confirm('Delete this page?')) return;
-        const id = btn.dataset.deletePage;
         try {
-          await fetch('/api/pages/' + id, { method: 'DELETE' });
+          await fetch('/api/pages/' + btn.dataset.deletePage, { method: 'DELETE' });
           await loadPages();
+          buildPagesSidebar();
           renderView();
-        } catch (err) {
-          alert('Delete failed: ' + err.message);
-        }
+        } catch (err) { alert('Delete failed: ' + err.message); }
       });
     });
   }
 
-  function renderPageForm() {
+  // This is the nice section editor — same look as Hero, Mission, etc.
+  function renderPageSection(page) {
+    const imgSrc = page.image_url ? '/media/' + page.image_url : '';
     const el = document.createElement('div');
     el.className = 'editor-section';
     el.innerHTML = `
       <div class="section-header">
-        <h3>Edit Page</h3>
-        <button class="btn btn-small" id="backToPages">&larr; Back to Pages</button>
+        <h3>${escapeHtml(page.title)} Page</h3>
+        <span style="font-size:0.8rem;color:${page.status === 'published' ? '#2e7d32' : '#999'};">${page.status === 'published' ? 'Published' : 'Draft'} &mdash; /${escapeHtml(page.slug)}/</span>
       </div>
       <div class="section-body open">
-        <form id="pageForm">
-          <div class="field">
-            <label>Title</label>
-            <input type="text" id="pageTitle" required>
+        <div class="field">
+          <label>Page Title</label>
+          <input type="text" id="pg_title" value="${escapeHtml(page.title)}">
+        </div>
+        <div class="field">
+          <label>Subtitle</label>
+          <input type="text" id="pg_subtitle" value="${escapeHtml(page.subtitle || '')}" placeholder="A short description shown below the title">
+        </div>
+        <div class="field">
+          <label>Header Image</label>
+          <div class="image-picker-field">
+            <div>
+              <input type="text" id="pg_image" value="${escapeHtml(page.image_url || '')}" placeholder="Select or enter image key">
+              <button class="btn btn-add image-picker-btn" id="pgPickImage">Browse</button>
+            </div>
+            <div class="image-picker-preview">${imgSrc ? `<img src="${imgSrc}">` : ''}</div>
           </div>
-          <div class="field">
-            <label>Slug (URL path)</label>
-            <input type="text" id="pageSlug" required placeholder="e.g. about">
-          </div>
-          <div class="field">
-            <label>Body (HTML)</label>
-            <textarea id="pageBody" rows="14"></textarea>
-          </div>
-          <div class="field">
-            <label class="checkbox-label">
-              <input type="checkbox" id="pageStatus"> Published
-            </label>
-          </div>
-          <button type="submit" class="btn btn-save">Save Page</button>
-        </form>
+        </div>
+        <div class="field">
+          <label>Body Content</label>
+          <textarea id="pg_body" rows="10" placeholder="Write your page content here. Each line becomes a paragraph.">${escapeHtml(page.body || '')}</textarea>
+        </div>
+        <div class="field">
+          <label class="checkbox-label">
+            <input type="checkbox" id="pg_published" ${page.status === 'published' ? 'checked' : ''}> Published (visible on site)
+          </label>
+        </div>
+        <button class="btn btn-save" id="pgSaveBtn">Save Page</button>
       </div>
     `;
     contentArea.appendChild(el);
 
-    el.querySelector('#backToPages').addEventListener('click', () => {
-      currentView = 'pages';
-      renderView();
+    // Image picker
+    el.querySelector('#pgPickImage').addEventListener('click', () => {
+      openImagePicker(key => {
+        document.getElementById('pg_image').value = key;
+        const preview = el.querySelector('.image-picker-preview');
+        preview.innerHTML = `<img src="/media/${key}">`;
+      });
     });
 
-    // Auto-generate slug from title
-    const titleInput = el.querySelector('#pageTitle');
-    const slugInput = el.querySelector('#pageSlug');
-    titleInput.addEventListener('input', () => {
-      if (!el.querySelector('#pageForm').dataset.editId) {
-        slugInput.value = titleInput.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      }
-    });
-
-    el.querySelector('#pageForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
+    // Save
+    el.querySelector('#pgSaveBtn').addEventListener('click', () => {
       const payload = {
-        title: document.getElementById('pageTitle').value.trim(),
-        slug: document.getElementById('pageSlug').value.trim(),
-        body: document.getElementById('pageBody').value,
-        status: document.getElementById('pageStatus').checked ? 'published' : 'draft',
+        title: document.getElementById('pg_title').value.trim(),
+        slug: page.slug,
+        subtitle: document.getElementById('pg_subtitle').value.trim(),
+        body: document.getElementById('pg_body').value,
+        image_url: document.getElementById('pg_image').value.trim(),
+        status: document.getElementById('pg_published').checked ? 'published' : 'draft',
       };
-
-      if (!payload.title || !payload.slug) {
-        alert('Title and slug are required.');
-        return;
-      }
-
-      const editId = form.dataset.editId;
-      const method = editId ? 'PUT' : 'POST';
-      const url = editId ? '/api/pages/' + editId : '/api/pages';
-
-      try {
-        const res = await fetch(url, {
-          method,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || 'Save failed');
-        }
-        await loadPages();
-        currentView = 'pages';
-        renderView();
-        setStatus('Page saved!', 'ok');
-      } catch (err) {
-        alert('Error saving page: ' + err.message);
-      }
+      savePage(page.id, payload);
     });
+  }
+
+  async function savePage(id, payload) {
+    const method = id ? 'PUT' : 'POST';
+    const url = id ? '/api/pages/' + id : '/api/pages';
+    try {
+      setStatus('Saving page...', 'saving');
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Save failed');
+      }
+      const saved = await res.json().catch(() => null);
+      await loadPages();
+      buildPagesSidebar();
+      if (!id && saved) {
+        currentView = 'page-' + saved.slug;
+      }
+      renderView();
+      highlightSidebarItem(currentView);
+      setStatus('Page saved!', 'saved');
+      setTimeout(() => setStatus(''), 3000);
+    } catch (err) {
+      setStatus('Error: ' + err.message, 'error');
+    }
+  }
+
+  function renderPageForm() {
+    // Redirect to pages list (kept for backward compat)
+    currentView = 'pages';
+    renderView();
+  }
+
+  // ── Dynamic sidebar for pages ──
+
+  function buildPagesSidebar() {
+    // Remove old dynamic page links
+    document.querySelectorAll('.nav-item-dynamic-page').forEach(el => el.remove());
+
+    const pagesLabel = document.querySelector('.nav-item[data-section="pages"]');
+    if (!pagesLabel || !pagesList.length) return;
+
+    // Insert page links right after the "Pages" nav item
+    pagesList.forEach(page => {
+      const link = document.createElement('a');
+      link.href = '#page-' + page.slug;
+      link.className = 'nav-item nav-item-dynamic-page';
+      link.dataset.section = 'page-' + page.slug;
+      link.style.paddingLeft = '2rem';
+      link.style.fontSize = '0.82rem';
+      link.textContent = page.title;
+      if (page.status !== 'published') {
+        const badge = document.createElement('span');
+        badge.textContent = 'draft';
+        badge.style.cssText = 'font-size:0.65rem;color:#999;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.04em;';
+        link.appendChild(badge);
+      }
+      pagesLabel.parentNode.insertBefore(link, pagesLabel.nextSibling);
+      // Add click handler
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        link.classList.add('active');
+        currentView = link.dataset.section;
+        renderView();
+        sidebar.classList.remove('open');
+      });
+    });
+  }
+
+  function highlightSidebarItem(sectionId) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const match = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+    if (match) match.classList.add('active');
   }
 
   // ══════════════════════════════════════════════
@@ -1496,6 +1555,7 @@
       loadFinancials(),
       loadPages(),
     ]);
+    buildPagesSidebar();
     renderView();
   }
 

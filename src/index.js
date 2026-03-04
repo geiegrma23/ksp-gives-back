@@ -1,21 +1,45 @@
-// GET /api/content — Public, returns all site content (KV-cached)
-// PUT /api/content — Admin only, upserts content + purges KV cache
+// KSP Gives Back — Worker entry point
+// Handles /api/content routes; static assets served automatically via [assets]
 
 const KV_KEY = 'site_content_v1';
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    // Only handle /api/content — everything else falls through to assets
+    if (url.pathname === '/api/content') {
+      return handleContent(request, env);
+    }
+
+    // Return 404 for any other /api/ routes
+    if (url.pathname.startsWith('/api/')) {
+      return jsonResponse({ error: 'Not found' }, 404);
+    }
+
+    // Static assets are handled automatically by the assets binding
+    return new Response('Not found', { status: 404 });
+  },
 };
 
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+async function handleContent(request, env) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: corsHeaders() });
+  }
+
+  if (request.method === 'GET') {
+    return handleGet(env);
+  }
+
+  if (request.method === 'PUT') {
+    return handlePut(request, env);
+  }
+
+  return jsonResponse({ error: 'Method not allowed' }, 405);
 }
 
-// ── GET: Public read ──
-export async function onRequestGet(context) {
-  const { env } = context;
-
+// ── GET: Public read (KV-cached) ──
+async function handleGet(env) {
   // Try KV cache first
   if (env.CACHE) {
     const cached = await env.CACHE.get(KV_KEY, 'json');
@@ -36,8 +60,15 @@ export async function onRequestGet(context) {
 }
 
 // ── PUT: Admin write ──
-export async function onRequestPut(context) {
-  const { request, env } = context;
+async function handlePut(request, env) {
+  // Auth check: require Cloudflare Access JWT for writes
+  const cfAccessAud = env.CF_ACCESS_AUD;
+  if (cfAccessAud) {
+    const jwt = request.headers.get('Cf-Access-Jwt-Assertion');
+    if (!jwt) {
+      return jsonResponse({ error: 'Unauthorized' }, 401);
+    }
+  }
 
   let body;
   try {
@@ -58,7 +89,7 @@ export async function onRequestPut(context) {
     if (batch.length) await db.batch(batch);
   }
 
-  // Upsert mission_cards (delete + reinsert for simplicity)
+  // Upsert mission_cards (delete + reinsert)
   if (Array.isArray(body.mission_cards)) {
     await db.exec('DELETE FROM mission_cards');
     if (body.mission_cards.length) {
@@ -127,12 +158,20 @@ async function loadAllContent(db) {
   };
 }
 
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+}
+
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
       'Content-Type': 'application/json',
-      ...CORS_HEADERS,
+      ...corsHeaders(),
     },
   });
 }

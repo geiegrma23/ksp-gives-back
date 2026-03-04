@@ -1,5 +1,10 @@
 name = "ksp-gives-back"
+main = "src/index.js"
 compatibility_date = "2024-12-01"
+
+# ── Static Assets ──
+[assets]
+directory = "./public"
 
 # ── Cloudflare D1 Database ──
 # After running: npx wrangler d1 create ksp-gives-back

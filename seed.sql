@@ -72,3 +72,18 @@ INSERT OR REPLACE INTO site_content (key, value) VALUES
   ('footer_parent_text', 'A philanthropic program of'),
   ('footer_parent_name', 'KSP Technologies'),
   ('footer_parent_link', 'https://kspfulfillment.com');
+
+-- ── Financials intro text ──
+INSERT OR REPLACE INTO site_content (key, value) VALUES
+  ('financials_label', 'Transparency'),
+  ('financials_title', 'Our Financials'),
+  ('financials_intro', 'We believe in full transparency. Here you can review our financial highlights and download our reports.');
+
+-- ── Navigation ──
+DELETE FROM nav_items;
+INSERT INTO nav_items (label, url, sort_order, visible) VALUES
+  ('Home',          '/',              1, 1),
+  ('Events',        '/events/',       2, 1),
+  ('Testimonials',  '/testimonials/', 3, 1),
+  ('Financials',    '/financials/',   4, 1),
+  ('Contact',       '/#contact',      5, 1);

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — KSP Gives Back</title>
+  <meta name="description" content="Upcoming events from KSP Gives Back — supporting Minnesota Veterans and their spouses.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="events.css">
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="section-label">What's Happening</div>
+    <h1 class="section-title">Events</h1>
+    <div class="divider divider--center"></div>
+  </div>
+
+  <section class="events-page">
+    <div class="container">
+      <!-- Calendar -->
+      <div class="calendar" id="calendar">
+        <div class="calendar__header">
+          <button class="calendar__nav" id="calPrev">&larr;</button>
+          <h3 class="calendar__month" id="calMonth"></h3>
+          <button class="calendar__nav" id="calNext">&rarr;</button>
+        </div>
+        <div class="calendar__grid">
+          <div class="calendar__day-label">Sun</div>
+          <div class="calendar__day-label">Mon</div>
+          <div class="calendar__day-label">Tue</div>
+          <div class="calendar__day-label">Wed</div>
+          <div class="calendar__day-label">Thu</div>
+          <div class="calendar__day-label">Fri</div>
+          <div class="calendar__day-label">Sat</div>
+          <div id="calDays"></div>
+        </div>
+      </div>
+
+      <!-- Event List -->
+      <div class="events-list" id="eventsList">
+        <p style="color:var(--steel);text-align:center;padding:2rem;">Loading events...</p>
+      </div>
+
+      <!-- Event Detail (shown when clicking an event) -->
+      <div class="event-detail" id="eventDetail" style="display:none;"></div>
+    </div>
+  </section>
+
+  <script src="/components/nav.js"></script>
+  <script src="/components/footer.js"></script>
+  <script src="events.js"></script>
+</body>
+</html>

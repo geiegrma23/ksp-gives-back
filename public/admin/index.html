@@ -18,6 +18,7 @@
         <span class="sidebar-badge">Content Editor</span>
       </div>
       <nav class="sidebar-nav">
+        <div class="nav-group-label">Homepage</div>
         <a href="#hero" class="nav-item active" data-section="hero">Hero</a>
         <a href="#mission" class="nav-item" data-section="mission">Mission</a>
         <a href="#values" class="nav-item" data-section="values">Values</a>
@@ -25,6 +26,13 @@
         <a href="#goals" class="nav-item" data-section="goals">Goals</a>
         <a href="#contact" class="nav-item" data-section="contact">Contact</a>
         <a href="#footer" class="nav-item" data-section="footer">Footer</a>
+        <div class="nav-group-label">Site</div>
+        <a href="#navigation" class="nav-item" data-section="navigation">Navigation</a>
+        <a href="#media" class="nav-item" data-section="media">Media Library</a>
+        <div class="nav-group-label">Content</div>
+        <a href="#events" class="nav-item" data-section="events">Events</a>
+        <a href="#testimonials" class="nav-item" data-section="testimonials">Testimonials</a>
+        <a href="#financials" class="nav-item" data-section="financials">Financials</a>
       </nav>
       <div class="sidebar-footer">
         <a href="/" class="sidebar-link">View Site</a>
@@ -43,10 +51,25 @@
       </header>
 
       <div class="content-area" id="contentArea">
-        <!-- Sections injected by app.js -->
         <div class="loading" id="loading">Loading content...</div>
       </div>
     </main>
+  </div>
+
+  <!-- Image Picker Modal -->
+  <div class="modal-overlay" id="imagePickerModal" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Select Image</h3>
+        <button class="modal-close" id="imagePickerClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="media-upload-inline">
+          <label class="btn btn-add">Upload New <input type="file" accept="image/*" id="modalUploadInput" style="display:none;"></label>
+        </div>
+        <div class="media-picker-grid" id="imagePickerGrid"></div>
+      </div>
+    </div>
   </div>
 
   <script src="app.js"></script>

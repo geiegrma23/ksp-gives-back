@@ -1,0 +1,168 @@
+/* ─── Financials Page Styles ─── */
+
+.financials-page {
+  padding: 3rem 0 5rem;
+}
+
+.financials-intro {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.financials-section-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(197,164,78,0.2);
+}
+
+/* ─── Highlights ─── */
+.financials-highlights {
+  margin-bottom: 3rem;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.highlight-card {
+  padding: 2rem 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(197,164,78,0.12);
+  border-top: 3px solid var(--red);
+  text-align: center;
+  transition: transform 0.3s;
+}
+.highlight-card:hover {
+  transform: translateY(-3px);
+}
+
+.highlight-card__value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-card__label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.highlight-card__desc {
+  font-size: 0.9rem;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+/* ─── Reports ─── */
+.financials-reports {
+  margin-bottom: 3rem;
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-left: 3px solid var(--gold);
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+.report-item:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(197,164,78,0.2);
+}
+
+.report-item__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(191,10,48,0.1);
+  border: 1px solid rgba(191,10,48,0.2);
+  color: var(--red-glow);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.report-item__info {
+  flex: 1;
+}
+
+.report-item__title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+
+.report-item__meta {
+  font-size: 0.85rem;
+  color: var(--steel);
+}
+
+.report-item__desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  margin-top: 0.3rem;
+}
+
+.report-item__download {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(197,164,78,0.3);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.report-item__download:hover {
+  background: rgba(197,164,78,0.1);
+  border-color: var(--gold);
+}
+
+.financials-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--steel);
+}
+
+@media (max-width: 600px) {
+  .report-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+}

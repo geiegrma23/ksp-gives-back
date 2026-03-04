@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financials — KSP Gives Back</title>
+  <meta name="description" content="Financial transparency and reports from KSP Gives Back.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="financials.css">
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="section-label" id="finLabel">Transparency</div>
+    <h1 class="section-title" id="finTitle">Our Financials</h1>
+    <div class="divider divider--center"></div>
+  </div>
+
+  <section class="financials-page">
+    <div class="container">
+      <!-- Intro Text -->
+      <div class="financials-intro" id="finIntro">
+        <p>Loading...</p>
+      </div>
+
+      <!-- Highlights -->
+      <div class="financials-highlights" id="finHighlights" style="display:none;">
+        <h2 class="financials-section-title">At a Glance</h2>
+        <div class="highlights-grid" id="highlightsGrid"></div>
+      </div>
+
+      <!-- Reports -->
+      <div class="financials-reports" id="finReports" style="display:none;">
+        <h2 class="financials-section-title">Reports &amp; Documents</h2>
+        <div class="reports-list" id="reportsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="/components/nav.js"></script>
+  <script src="/components/footer.js"></script>
+  <script src="financials.js"></script>
+</body>
+</html>

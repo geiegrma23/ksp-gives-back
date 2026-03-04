@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — KSP Gives Back</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <h1>KSP Admin</h1>
+        <span class="sidebar-badge">Content Editor</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#hero" class="nav-item active" data-section="hero">Hero</a>
+        <a href="#mission" class="nav-item" data-section="mission">Mission</a>
+        <a href="#values" class="nav-item" data-section="values">Values</a>
+        <a href="#banner" class="nav-item" data-section="banner">Banner</a>
+        <a href="#goals" class="nav-item" data-section="goals">Goals</a>
+        <a href="#contact" class="nav-item" data-section="contact">Contact</a>
+        <a href="#footer" class="nav-item" data-section="footer">Footer</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/" class="sidebar-link">View Site</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">&#9776;</button>
+        <h2 class="topbar-title">Site Content</h2>
+        <div class="topbar-actions">
+          <span class="save-status" id="saveStatus"></span>
+          <button class="btn btn-save" id="saveBtn">Save All Changes</button>
+        </div>
+      </header>
+
+      <div class="content-area" id="contentArea">
+        <!-- Sections injected by app.js -->
+        <div class="loading" id="loading">Loading content...</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

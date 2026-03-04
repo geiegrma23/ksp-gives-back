@@ -1,0 +1,17 @@
+name = "ksp-gives-back"
+compatibility_date = "2024-12-01"
+
+# ── Cloudflare D1 Database ──
+# After running: npx wrangler d1 create ksp-gives-back
+# Replace the database_id below with the ID from that command
+[[d1_databases]]
+binding = "DB"
+database_name = "ksp-gives-back"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# ── Cloudflare KV Namespace ──
+# After running: npx wrangler kv namespace create CACHE
+# Replace the id below with the ID from that command
+[[kv_namespaces]]
+binding = "CACHE"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"

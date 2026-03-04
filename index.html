@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KSP Gives Back — Supporting Minnesota Veterans & Their Spouses</title>
+  <meta name="description" content="KSP Gives Back fosters support and connections for Minnesota Veterans and their spouses through meaningful interactions, shared experiences, and community engagement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #132744;
+      --navy-light: #1B3A5C;
+      --red: #BF0A30;
+      --red-dark: #8B0000;
+      --red-glow: #E63946;
+      --white: #FAFAF8;
+      --cream: #F0EDE5;
+      --gold: #C5A44E;
+      --gold-light: #D4B96A;
+      --steel: #8A9BB0;
+      --text-light: #D0D8E4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(191,10,48,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(197,164,78,0.08) 0%, transparent 50%),
+        linear-gradient(175deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(197,164,78,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, rgba(197,164,78,0.2) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 50% 15%, rgba(197,164,78,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 45%, rgba(197,164,78,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 75%, rgba(197,164,78,0.2) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 15% 85%, rgba(197,164,78,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 90%, rgba(197,164,78,0.15) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 10%, rgba(197,164,78,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 35%, rgba(255,255,255,0.1) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.08) 0%, transparent 100%);
+      opacity: 0.6;
+      animation: twinkle 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.7; }
+    }
+
+    .hero-stripe {
+      position: absolute;
+      left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--red), var(--red), transparent);
+    }
+    .hero-stripe--top { top: 0; }
+    .hero-stripe--bottom { bottom: 0; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      animation: fadeUp 1.2s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-flag-accent {
+      display: inline-block;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .hero-flag-accent::before,
+    .hero-flag-accent::after {
+      content: '★';
+      position: absolute;
+      top: 50%;
+      transform: translateY(calc(-50% + 1px));
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+    .hero-flag-accent::before { left: -20px; }
+    .hero-flag-accent::after { right: -20px; }
+
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 8vw, 6rem);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.3em;
+      background: linear-gradient(180deg, var(--white) 40%, var(--steel) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      background: var(--red);
+      border: 2px solid var(--red);
+      transition: all 0.3s ease;
+    }
+    .hero-cta:hover {
+      background: transparent;
+      color: var(--red-glow);
+      border-color: var(--red-glow);
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .divider {
+      width: 50px;
+      height: 3px;
+      background: var(--red);
+      margin-bottom: 2rem;
+    }
+    .divider--center { margin-left: auto; margin-right: auto; }
+
+    /* ─── MISSION ─── */
+    .mission {
+      background:
+        linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+      text-align: center;
+      position: relative;
+    }
+
+    .mission::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+      opacity: 0.3;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .mission-card {
+      padding: 2.5rem 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(197,164,78,0.12);
+      border-top: 3px solid var(--red);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(197,164,78,0.3);
+      border-top-color: var(--red-glow);
+    }
+
+    .mission-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .mission-card p {
+      color: var(--text-light);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* ─── VALUES ─── */
+    .values {
+      background: var(--navy);
+      position: relative;
+    }
+
+    .values-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .values-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .value-item {
+      padding: 2rem 1.5rem;
+      position: relative;
+      background: linear-gradient(135deg, rgba(19,39,68,0.8), rgba(10,22,40,0.9));
+      border-left: 3px solid var(--gold);
+      transition: all 0.3s ease;
+    }
+    .value-item:hover {
+      background: linear-gradient(135deg, rgba(19,39,68,1), rgba(27,58,92,0.6));
+    }
+
+    .value-item h4 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .value-item p {
+      color: var(--steel);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ─── GOALS ─── */
+    .goals {
+      background:
+        radial-gradient(ellipse at 80% 50%, rgba(191,10,48,0.06) 0%, transparent 60%),
+        linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
+      position: relative;
+    }
+
+    .goals::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(191,10,48,0.4), transparent);
+    }
+
+    .goals-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .goal-card {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1.8rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s ease;
+    }
+    .goal-card:hover {
+      border-color: rgba(197,164,78,0.2);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .goal-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--red);
+      line-height: 1;
+      opacity: 0.7;
+      flex-shrink: 0;
+      width: 40px;
+    }
+
+    .goal-card h4 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .goal-card p {
+      color: var(--steel);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ─── BANNER QUOTE ─── */
+    .banner {
+      padding: 4rem 2rem;
+      text-align: center;
+      background:
+        linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, var(--red-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 18px,
+          rgba(255,255,255,0.03) 18px,
+          rgba(255,255,255,0.03) 19px
+        );
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 1;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--white);
+    }
+
+    .banner-sub {
+      position: relative;
+      z-index: 1;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.7);
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      background: var(--navy);
+      text-align: center;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-details {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-light);
+      font-size: 1.05rem;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(197,164,78,0.3);
+      color: var(--gold);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact-item a:hover { color: var(--gold); }
+
+    .contact-cta {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.9rem 2.5rem;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--navy);
+      background: var(--gold);
+      border: 2px solid var(--gold);
+      transition: all 0.3s ease;
+    }
+    .contact-cta:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-stars {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      margin-bottom: 0.75rem;
+      opacity: 0.5;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--steel);
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      section { padding: 3.5rem 1.5rem; }
+      .goals-grid { grid-template-columns: 1fr; }
+      .mission-grid { grid-template-columns: 1fr; }
+      .values-list { grid-template-columns: 1fr 1fr; }
+      .goal-card { flex-direction: column; gap: 0.5rem; }
+      .goal-number { width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-stripe hero-stripe--top"></div>
+    <div class="hero-content">
+      <div class="hero-flag-accent"></div>
+      <h1 class="hero-title" data-content="hero_title">KSP Gives Back</h1>
+      <p class="hero-subtitle" data-content="hero_subtitle">Minnesota: Bound by Service, Supported for Life</p>
+      <p class="hero-description" data-content="hero_description">
+        A program fostering support and connections for Veterans and their spouses &mdash;
+        creating opportunities for meaningful interactions, shared experiences, and community engagement.
+      </p>
+      <a href="mailto:info@mnquietvalor.com" class="hero-cta" data-content="hero_cta_text" data-href="hero_cta_link">Get Involved Today</a>
+    </div>
+    <div class="hero-stripe hero-stripe--bottom"></div>
+  </header>
+
+  <!-- ═══ MISSION ═══ -->
+  <section class="mission">
+    <div class="section-label" data-content="mission_label">Who We Are</div>
+    <h2 class="section-title" data-content="mission_title">Our Mission</h2>
+    <div class="divider divider--center"></div>
+    <div class="mission-grid" data-collection="mission_cards">
+      <div class="mission-card fade-in">
+        <h3>Mission</h3>
+        <p>A program fostering support and connections for Veterans and their spouses. Creating opportunities for meaningful interactions, shared experiences, and community engagement.</p>
+      </div>
+      <div class="mission-card fade-in">
+        <h3>Purpose</h3>
+        <p>Providing support and connections for Minnesota Veterans and their spouses.</p>
+      </div>
+      <div class="mission-card fade-in">
+        <h3>Vision</h3>
+        <p>Creating valuable support for all Minnesota Veterans and their spouses.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VALUES ═══ -->
+  <section class="values">
+    <div class="values-container">
+      <div class="section-label" data-content="values_label">What We Stand For</div>
+      <h2 class="section-title" data-content="values_title">Our Values</h2>
+      <div class="divider"></div>
+      <div class="values-list" data-collection="values_items">
+        <div class="value-item fade-in">
+          <h4>Honor</h4>
+          <p>Respect and recognize the sacrifices of Veterans and their spouses.</p>
+        </div>
+        <div class="value-item fade-in">
+          <h4>Service</h4>
+          <p>Committed to supporting those who served.</p>
+        </div>
+        <div class="value-item fade-in">
+          <h4>Community</h4>
+          <p>Foster connection and belonging for Veterans &amp; spouses.</p>
+        </div>
+        <div class="value-item fade-in">
+          <h4>Compassion</h4>
+          <p>Provide care and assistance with empathy and respect.</p>
+        </div>
+        <div class="value-item fade-in">
+          <h4>Integrity</h4>
+          <p>Uphold honesty and accountability in all we do.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BANNER ═══ -->
+  <div class="banner">
+    <p class="banner-text" data-content="banner_text">Creating Valuable Support for All Minnesota Veterans and Their Spouses</p>
+    <p class="banner-sub" data-content="banner_sub">★ &nbsp; Honor &nbsp; ★ &nbsp; Service &nbsp; ★ &nbsp; Community &nbsp; ★</p>
+  </div>
+
+  <!-- ═══ GOALS ═══ -->
+  <section class="goals">
+    <div class="goals-container">
+      <div class="section-label" data-content="goals_label">What We Do</div>
+      <h2 class="section-title" data-content="goals_title">Our Goals</h2>
+      <div class="divider"></div>
+      <div class="goals-grid" data-collection="goals">
+        <div class="goal-card fade-in">
+          <div class="goal-number">01</div>
+          <div>
+            <h4>Reduce Veteran Isolation</h4>
+            <p>Engage veterans annually in peer support programs, social events, and community connections to combat loneliness.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">02</div>
+          <div>
+            <h4>Assist with Daily Living</h4>
+            <p>Support veterans with household tasks, mobility assistance, and home modifications to promote independence.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">03</div>
+          <div>
+            <h4>Build a Volunteer Network</h4>
+            <p>Recruit and train volunteers to provide transportation, companionship, and household support.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">04</div>
+          <div>
+            <h4>Secure Sustainable Funding</h4>
+            <p>Obtain grants, donations, and corporate sponsorships to fully fund and expand services statewide.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">05</div>
+          <div>
+            <h4>Strengthen Peer Support</h4>
+            <p>Create a statewide Buddy System connecting veterans with peers and trained volunteers for check-ins and social engagement.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">06</div>
+          <div>
+            <h4>Build Intergenerational Bonds</h4>
+            <p>Partner with schools and youth groups to connect veterans with younger generations through mentorship and shared experiences.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">07</div>
+          <div>
+            <h4>Community Awareness</h4>
+            <p>Build partnerships and engagement to strengthen awareness of veteran support needs across Minnesota.</p>
+          </div>
+        </div>
+        <div class="goal-card fade-in">
+          <div class="goal-number">08</div>
+          <div>
+            <h4>Measure &amp; Improve</h4>
+            <p>Track program success through veteran feedback, service data, and impact assessments to continuously refine and expand support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section class="contact">
+    <div class="contact-container">
+      <div class="section-label" data-content="contact_label">Reach Out</div>
+      <h2 class="section-title" data-content="contact_title">Contact Us</h2>
+      <div class="divider divider--center"></div>
+      <p style="color: var(--text-light); line-height: 1.7; margin-bottom: 1rem;" data-content="contact_intro">
+        We'd love to hear from you. Whether you're a veteran, a family member, or someone who wants to help &mdash; reach out anytime.
+      </p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <span data-content="contact_address">8100 Oxbow Creek Dr, Brooklyn Park, MN 55445</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <a href="tel:2182961103" data-content="contact_phone">(218) 296-1103</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <a href="mailto:info@mnquietvalor.com" data-content="contact_email">info@mnquietvalor.com</a>
+        </div>
+        <div class="contact-item" style="margin-top: 0.5rem; color: var(--steel); font-size: 0.95rem;">
+          <div class="contact-icon" style="border-color: rgba(255,255,255,0.1); color: var(--steel);">🕘</div>
+          <span data-content="contact_hours">Monday – Friday &nbsp;|&nbsp; 9:00 AM – 5:00 PM</span>
+        </div>
+      </div>
+      <a href="mailto:info@mnquietvalor.com" class="contact-cta" data-content="contact_cta_text" data-href="contact_cta_link">Send Us a Message</a>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-stars">★ ★ ★ ★ ★</div>
+    <p data-content="footer_copyright">&copy; 2025 KSP Gives Back &mdash; All Rights Reserved.</p>
+    <p style="margin-top: 0.4rem; font-size: 0.8rem; color: rgba(138,155,176,0.6);">
+      <span data-content="footer_parent_text">A philanthropic program of</span> <a href="https://kspfulfillment.com" target="_blank" rel="noopener" data-content="footer_parent_name" data-href="footer_parent_link">KSP Technologies</a>
+    </p>
+  </footer>
+
+  <!-- ═══ SCROLL REVEAL ═══ -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- ═══ CONTENT HYDRATION ═══ -->
+  <script>
+    (function () {
+      fetch('/api/content')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data) return;
+          var f = data.fields || {};
+
+          // Hydrate singleton text fields
+          document.querySelectorAll('[data-content]').forEach(function (el) {
+            var key = el.getAttribute('data-content');
+            if (f[key]) el.textContent = f[key];
+          });
+
+          // Hydrate href links
+          document.querySelectorAll('[data-href]').forEach(function (el) {
+            var key = el.getAttribute('data-href');
+            if (f[key]) el.href = f[key];
+          });
+
+          // Hydrate mission cards
+          var missionGrid = document.querySelector('[data-collection="mission_cards"]');
+          if (missionGrid && data.mission_cards && data.mission_cards.length) {
+            missionGrid.innerHTML = data.mission_cards.map(function (c) {
+              return '<div class="mission-card fade-in visible">' +
+                '<h3>' + escHtml(c.title) + '</h3>' +
+                '<p>' + escHtml(c.body) + '</p></div>';
+            }).join('');
+          }
+
+          // Hydrate values
+          var valuesList = document.querySelector('[data-collection="values_items"]');
+          if (valuesList && data.values_items && data.values_items.length) {
+            valuesList.innerHTML = data.values_items.map(function (v) {
+              return '<div class="value-item fade-in visible">' +
+                '<h4>' + escHtml(v.title) + '</h4>' +
+                '<p>' + escHtml(v.description) + '</p></div>';
+            }).join('');
+          }
+
+          // Hydrate goals
+          var goalsGrid = document.querySelector('[data-collection="goals"]');
+          if (goalsGrid && data.goals && data.goals.length) {
+            goalsGrid.innerHTML = data.goals.map(function (g) {
+              return '<div class="goal-card fade-in visible">' +
+                '<div class="goal-number">' + escHtml(g.number) + '</div>' +
+                '<div><h4>' + escHtml(g.title) + '</h4>' +
+                '<p>' + escHtml(g.description) + '</p></div></div>';
+            }).join('');
+          }
+
+          // Update email link hrefs dynamically
+          if (f.contact_email) {
+            document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+              if (!a.hasAttribute('data-href')) a.href = 'mailto:' + f.contact_email;
+            });
+          }
+          if (f.contact_phone) {
+            document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+              a.href = 'tel:' + f.contact_phone.replace(/[^+\d]/g, '');
+            });
+          }
+        })
+        .catch(function () { /* Silently fail — hardcoded fallback stays */ });
+
+      function escHtml(s) {
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+      }
+    })();
+  </script>
+
+</body>
+</html>

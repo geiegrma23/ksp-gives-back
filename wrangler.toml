@@ -6,5 +6,13 @@ compatibility_date = "2024-12-01"
 [assets]
 directory = "./public"
 
-# D1 and KV bindings are configured in the Cloudflare dashboard
-# under Worker Settings → Bindings (not in this file for deployment)
+# ── Cloudflare D1 Database ──
+[[d1_databases]]
+binding = "DB"
+database_name = "ksp-gives-back"
+database_id = "78c96711-9328-4af9-8442-6a3fe8a94f11"
+
+# ── Cloudflare KV Namespace ──
+[[kv_namespaces]]
+binding = "CACHE"
+id = "cfb8f1d2232446028d80b177502a171d"

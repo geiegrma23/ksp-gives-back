@@ -54,6 +54,7 @@
           { label: 'Events', url: '/events/', visible: 1 },
           { label: 'Testimonials', url: '/testimonials/', visible: 1 },
           { label: 'Financials', url: '/financials/', visible: 1 },
+          { label: 'Gallery', url: '/gallery/', visible: 1 },
           { label: 'Contact', url: '/#contact', visible: 1 },
         ];
       }

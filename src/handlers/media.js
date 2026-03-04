@@ -10,6 +10,11 @@ export async function handleMedia(request, env, url) {
     return handleUpload(request, env);
   }
 
+  // GET /api/media/public — list images for public gallery (no auth)
+  if (request.method === 'GET' && url.pathname === '/api/media/public') {
+    return handlePublicList(env);
+  }
+
   // GET /api/media — list all media (admin)
   if (request.method === 'GET' && url.pathname === '/api/media') {
     return handleList(request, env);
@@ -72,6 +77,13 @@ async function handleUpload(request, env) {
   const record = await env.DB.prepare('SELECT * FROM media WHERE key = ?').bind(key).first();
 
   return jsonResponse(record, 201);
+}
+
+async function handlePublicList(env) {
+  const result = await env.DB.prepare(
+    'SELECT id, key, filename, content_type, size, created_at FROM media ORDER BY created_at DESC'
+  ).all();
+  return jsonResponse(result.results);
 }
 
 async function handleList(request, env) {

@@ -19,6 +19,7 @@
         '<a href="/events/">Events</a>' +
         '<a href="/testimonials/">Testimonials</a>' +
         '<a href="/financials/">Financials</a>' +
+        '<a href="/gallery/">Gallery</a>' +
       '</div>';
     return footer;
   }

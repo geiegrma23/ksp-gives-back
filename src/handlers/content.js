@@ -46,10 +46,10 @@ async function handlePut(request, env) {
     await db.exec('DELETE FROM mission_cards');
     if (body.mission_cards.length) {
       const stmt = db.prepare(
-        `INSERT INTO mission_cards (title, body, image_url, sort_order, updated_at) VALUES (?, ?, ?, ?, datetime('now'))`
+        `INSERT INTO mission_cards (title, body, sort_order, updated_at) VALUES (?, ?, ?, datetime('now'))`
       );
       const batch = body.mission_cards.map((c, i) =>
-        stmt.bind(c.title, c.body, c.image_url || '', i + 1)
+        stmt.bind(c.title, c.body, i + 1)
       );
       await db.batch(batch);
     }
@@ -85,7 +85,7 @@ async function handlePut(request, env) {
 async function loadAllContent(db) {
   const [fieldsResult, cardsResult, valuesResult, goalsResult] = await db.batch([
     db.prepare('SELECT key, value FROM site_content'),
-    db.prepare('SELECT id, title, body, image_url, sort_order FROM mission_cards ORDER BY sort_order'),
+    db.prepare('SELECT id, title, body, sort_order FROM mission_cards ORDER BY sort_order'),
     db.prepare('SELECT id, title, description, sort_order FROM values_items ORDER BY sort_order'),
     db.prepare('SELECT id, number, title, description, sort_order FROM goals ORDER BY sort_order'),
   ]);

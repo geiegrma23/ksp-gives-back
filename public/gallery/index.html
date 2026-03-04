@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — KSP Gives Back</title>
+  <meta name="description" content="Photos and images from KSP Gives Back events and community outreach.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="section-label">Our Story in Pictures</div>
+    <h1 class="section-title">Gallery</h1>
+    <div class="divider divider--center"></div>
+  </div>
+
+  <section class="gallery-page">
+    <div class="container">
+      <div class="gallery-grid" id="galleryGrid">
+        <p style="color:var(--steel);text-align:center;padding:2rem;">Loading gallery...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" style="display:none;">
+    <button class="lightbox__close" id="lightboxClose">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev">&larr;</button>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext">&rarr;</button>
+    <div class="lightbox__content">
+      <img id="lightboxImg" src="" alt="">
+      <div class="lightbox__caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script src="/components/nav.js"></script>
+  <script src="/components/footer.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

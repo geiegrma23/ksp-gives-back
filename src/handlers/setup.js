@@ -3,6 +3,16 @@ import { jsonResponse, optionsResponse } from '../lib/response.js';
 import { isAdmin } from '../lib/auth.js';
 
 // Each statement as a separate string for D1 batch execution
+// ALTER TABLE migrations — safe to re-run (wrapped in try/catch per-statement)
+const MIGRATIONS = [
+  `ALTER TABLE mission_cards ADD COLUMN image_url TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE events ADD COLUMN end_date TEXT`,
+  `ALTER TABLE events ADD COLUMN time_start TEXT`,
+  `ALTER TABLE events ADD COLUMN time_end TEXT`,
+  `ALTER TABLE events ADD COLUMN image_url TEXT NOT NULL DEFAULT ''`,
+  `ALTER TABLE events ADD COLUMN description TEXT NOT NULL DEFAULT ''`,
+];
+
 const SCHEMA_STATEMENTS = [
   `CREATE TABLE IF NOT EXISTS site_content (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS mission_cards (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, body TEXT NOT NULL, image_url TEXT NOT NULL DEFAULT '', sort_order INTEGER NOT NULL DEFAULT 0, updated_at TEXT DEFAULT (datetime('now')))`,
@@ -77,7 +87,8 @@ const SEED_STATEMENTS = [
   [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Events', '/events/', 2, 1],
   [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Testimonials', '/testimonials/', 3, 1],
   [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Financials', '/financials/', 4, 1],
-  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Contact', '/#contact', 5, 1],
+  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Gallery', '/gallery/', 5, 1],
+  [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Contact', '/#contact', 6, 1],
 ];
 
 export async function handleSetup(request, env) {
@@ -94,6 +105,20 @@ export async function handleSetup(request, env) {
     const schemaBatch = SCHEMA_STATEMENTS.map(sql => env.DB.prepare(sql));
     await env.DB.batch(schemaBatch);
     results.push('Schema: all tables created/verified');
+
+    // Run migrations — ALTER TABLE (ignore "duplicate column" errors)
+    for (const sql of MIGRATIONS) {
+      try {
+        await env.DB.prepare(sql).run();
+        results.push('Migration OK: ' + sql.substring(0, 60));
+      } catch (err) {
+        if (err.message && err.message.includes('duplicate column')) {
+          results.push('Migration skipped (already exists): ' + sql.substring(0, 60));
+        } else {
+          results.push('Migration skipped: ' + err.message);
+        }
+      }
+    }
 
     // Run seed
     if (!skipSeed) {

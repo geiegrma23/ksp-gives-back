@@ -81,7 +81,7 @@ export default {
       // Only try for paths like /about/ or /about (not static assets)
       if (request.method === 'GET' && !path.includes('.')) {
         const slug = path.replace(/^\/|\/$/g, '');
-        if (slug && !['events','testimonials','financials','gallery','admin'].includes(slug)) {
+        if (slug && !['events','testimonials','financials','gallery','admin','about'].includes(slug)) {
           const pageResponse = await serveDynamicPage(env, slug);
           if (pageResponse) return pageResponse;
         }

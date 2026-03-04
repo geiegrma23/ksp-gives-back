@@ -85,6 +85,16 @@ const SEED_STATEMENTS = [
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'financials_label', 'Transparency'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'financials_title', 'Our Financials'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'financials_intro', 'We believe in full transparency. Here you can review our financial highlights and download our reports.'],
+  // About
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_label', 'Who We Are'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_title', 'KSP Gives Back'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_intro', 'KSP Gives Back is a charitable initiative and nonprofit arm of KSP Fulfillment, a Veteran-owned company. We strengthen communities by supporting Veteran-focused causes while also raising funds for select charitable organizations that align with our values of service, integrity, and impact.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_mission_title', 'Our Mission'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_mission_text', 'KSP Gives Back, in partnership with KSP Fulfillment, strengthens communities by supporting Veteran-focused causes and select charitable organizations.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_title', 'Governance & Accountability'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_text', 'KSP Gives Back is governed by an independent Board of Directors responsible for strategic oversight, fiduciary stewardship, and mission accountability. The Board ensures compliance with all legal and ethical requirements and provides oversight of finances, policies, and organizational strategy.\n\nDay-to-day operations are managed by an Executive Director, who implements board-approved policies and reports directly to the Board. This governance structure ensures transparency, accountability, and a clear separation between oversight and operations.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_title', 'Our Commitment'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_text', 'As a Veteran-led organization, KSP Gives Back is committed to honoring service, strengthening communities, and responsibly stewarding the resources entrusted to us by donors, partners, and supporters.'],
   // Nav
   [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Home', '/', 1, 1],
   [`INSERT OR IGNORE INTO nav_items (label, url, sort_order, visible) VALUES (?, ?, ?, ?)`, 'Events', '/events/', 2, 1],

@@ -36,7 +36,7 @@ export async function ensurePageForNav(env, navUrl) {
   // Only handle internal paths like /about/, /something/
   if (!navUrl || navUrl === '/' || navUrl.startsWith('/#') || navUrl.startsWith('http')) return;
   // Skip known static pages
-  const staticPages = ['/events/', '/testimonials/', '/financials/', '/gallery/', '/admin/'];
+  const staticPages = ['/events/', '/testimonials/', '/financials/', '/gallery/', '/admin/', '/about/'];
   if (staticPages.some(p => navUrl.startsWith(p))) return;
 
   const slug = navUrl.replace(/^\/|\/$/g, ''); // "/about/" -> "about"

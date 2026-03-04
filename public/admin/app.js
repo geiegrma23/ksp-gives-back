@@ -19,6 +19,7 @@
   let financialReports = [];
   let financialHighlights = [];
   let navItems = [];
+  let pagesList = [];
 
   // Image picker callback
   let imagePickerCallback = null;
@@ -143,6 +144,13 @@
     } catch { navItems = []; }
   }
 
+  async function loadPages() {
+    try {
+      const res = await fetch('/api/pages?all=1');
+      pagesList = res.ok ? await res.json() : [];
+    } catch { pagesList = []; }
+  }
+
   async function loadMedia() {
     try {
       const res = await fetch('/api/media');
@@ -201,6 +209,8 @@
       case 'testimonials-edit': renderTestimonialForm(); break;
       case 'financials': renderFinancialsEditor(); break;
       case 'financials-report-edit': renderReportForm(); break;
+      case 'pages': renderPagesList(); break;
+      case 'pages-edit': renderPageForm(); break;
     }
   }
 
@@ -1255,6 +1265,169 @@
   }
 
   // ══════════════════════════════════════════════
+  //  PAGES CRUD
+  // ══════════════════════════════════════════════
+
+  function renderPagesList() {
+    const el = document.createElement('div');
+    el.className = 'editor-section';
+    el.innerHTML = `
+      <div class="section-header">
+        <h3>Pages</h3>
+        <button class="btn btn-add" id="addPageBtn">+ New Page</button>
+      </div>
+      <div class="section-body open">
+        <p style="margin-bottom:1rem;color:#666;">Pages are auto-created when you add navigation items. Edit content and publish them here.</p>
+        <div class="crud-list" id="pagesList"></div>
+      </div>
+    `;
+    contentArea.appendChild(el);
+
+    const list = el.querySelector('#pagesList');
+    if (!pagesList.length) {
+      list.innerHTML = '<p class="empty-state">No pages yet. Add a navigation item or click "+ New Page".</p>';
+    } else {
+      pagesList.forEach(page => {
+        const row = document.createElement('div');
+        row.className = 'crud-row';
+        row.innerHTML = `
+          <div class="crud-row-info">
+            <strong>${escapeHtml(page.title)}</strong>
+            <span class="crud-row-meta">/${escapeHtml(page.slug)}/ &mdash; ${page.status === 'published' ? '<span style="color:#2e7d32">Published</span>' : '<span style="color:#999">Draft</span>'}</span>
+          </div>
+          <div class="crud-row-actions">
+            <button class="btn btn-small" data-edit-page="${page.id}">Edit</button>
+            <button class="btn btn-small btn-danger" data-delete-page="${page.id}">Delete</button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    el.querySelector('#addPageBtn').addEventListener('click', () => {
+      currentView = 'pages-edit';
+      renderView();
+    });
+
+    el.querySelectorAll('[data-edit-page]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.dataset.editPage, 10);
+        const page = pagesList.find(p => p.id === id);
+        if (page) {
+          currentView = 'pages-edit';
+          renderView();
+          // Fill form
+          document.getElementById('pageTitle').value = page.title;
+          document.getElementById('pageSlug').value = page.slug;
+          document.getElementById('pageBody').value = page.body || '';
+          document.getElementById('pageStatus').checked = page.status === 'published';
+          document.getElementById('pageForm').dataset.editId = page.id;
+        }
+      });
+    });
+
+    el.querySelectorAll('[data-delete-page]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (!confirm('Delete this page?')) return;
+        const id = btn.dataset.deletePage;
+        try {
+          await fetch('/api/pages/' + id, { method: 'DELETE' });
+          await loadPages();
+          renderView();
+        } catch (err) {
+          alert('Delete failed: ' + err.message);
+        }
+      });
+    });
+  }
+
+  function renderPageForm() {
+    const el = document.createElement('div');
+    el.className = 'editor-section';
+    el.innerHTML = `
+      <div class="section-header">
+        <h3>Edit Page</h3>
+        <button class="btn btn-small" id="backToPages">&larr; Back to Pages</button>
+      </div>
+      <div class="section-body open">
+        <form id="pageForm">
+          <div class="field">
+            <label>Title</label>
+            <input type="text" id="pageTitle" required>
+          </div>
+          <div class="field">
+            <label>Slug (URL path)</label>
+            <input type="text" id="pageSlug" required placeholder="e.g. about">
+          </div>
+          <div class="field">
+            <label>Body (HTML)</label>
+            <textarea id="pageBody" rows="14"></textarea>
+          </div>
+          <div class="field">
+            <label class="checkbox-label">
+              <input type="checkbox" id="pageStatus"> Published
+            </label>
+          </div>
+          <button type="submit" class="btn btn-save">Save Page</button>
+        </form>
+      </div>
+    `;
+    contentArea.appendChild(el);
+
+    el.querySelector('#backToPages').addEventListener('click', () => {
+      currentView = 'pages';
+      renderView();
+    });
+
+    // Auto-generate slug from title
+    const titleInput = el.querySelector('#pageTitle');
+    const slugInput = el.querySelector('#pageSlug');
+    titleInput.addEventListener('input', () => {
+      if (!el.querySelector('#pageForm').dataset.editId) {
+        slugInput.value = titleInput.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      }
+    });
+
+    el.querySelector('#pageForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const payload = {
+        title: document.getElementById('pageTitle').value.trim(),
+        slug: document.getElementById('pageSlug').value.trim(),
+        body: document.getElementById('pageBody').value,
+        status: document.getElementById('pageStatus').checked ? 'published' : 'draft',
+      };
+
+      if (!payload.title || !payload.slug) {
+        alert('Title and slug are required.');
+        return;
+      }
+
+      const editId = form.dataset.editId;
+      const method = editId ? 'PUT' : 'POST';
+      const url = editId ? '/api/pages/' + editId : '/api/pages';
+
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Save failed');
+        }
+        await loadPages();
+        currentView = 'pages';
+        renderView();
+        setStatus('Page saved!', 'ok');
+      } catch (err) {
+        alert('Error saving page: ' + err.message);
+      }
+    });
+  }
+
+  // ══════════════════════════════════════════════
   //  HELPERS
   // ══════════════════════════════════════════════
 
@@ -1321,6 +1494,7 @@
       loadEvents(),
       loadTestimonials(),
       loadFinancials(),
+      loadPages(),
     ]);
     renderView();
   }

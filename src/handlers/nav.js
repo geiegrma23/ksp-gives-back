@@ -1,6 +1,7 @@
 // Navigation handler
 import { jsonResponse, optionsResponse } from '../lib/response.js';
 import { isAdmin } from '../lib/auth.js';
+import { ensurePageForNav } from './pages.js';
 
 export async function handleNav(request, env) {
   if (request.method === 'OPTIONS') return optionsResponse();
@@ -43,6 +44,11 @@ async function handlePutNav(request, env) {
       stmt.bind(item.label, item.url, i + 1, item.visible !== false ? 1 : 0)
     );
     await db.batch(batch);
+  }
+
+  // Auto-create page stubs for any new nav URLs
+  for (const item of items) {
+    try { await ensurePageForNav(env, item.url); } catch {}
   }
 
   return handleGetNav(env);

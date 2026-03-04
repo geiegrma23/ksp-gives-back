@@ -9,6 +9,7 @@ import { handleEvents } from './handlers/events.js';
 import { handleTestimonials } from './handlers/testimonials.js';
 import { handleFinancials, handleFinancialReports, handleFinancialHighlights } from './handlers/financials.js';
 import { handleSetup } from './handlers/setup.js';
+import { handlePagesApi, serveDynamicPage } from './handlers/pages.js';
 
 export default {
   async fetch(request, env) {
@@ -61,6 +62,11 @@ export default {
         return await handleFinancialHighlights(request, env);
       }
 
+      // ── Pages API ──
+      if (path === '/api/pages' || path.startsWith('/api/pages/')) {
+        return await handlePagesApi(request, env, url);
+      }
+
       // ── Setup / Migration ──
       if (path === '/api/setup') {
         return await handleSetup(request, env);
@@ -69,6 +75,16 @@ export default {
       // ── Unknown API route ──
       if (path.startsWith('/api/')) {
         return jsonResponse({ error: 'Not found' }, 404);
+      }
+
+      // ── Dynamic pages (catch-all for /:slug/) ──
+      // Only try for paths like /about/ or /about (not static assets)
+      if (request.method === 'GET' && !path.includes('.')) {
+        const slug = path.replace(/^\/|\/$/g, '');
+        if (slug && !['events','testimonials','financials','gallery','admin'].includes(slug)) {
+          const pageResponse = await serveDynamicPage(env, slug);
+          if (pageResponse) return pageResponse;
+        }
       }
 
       // Static assets handled by the assets binding

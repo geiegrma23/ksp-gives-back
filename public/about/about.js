@@ -32,6 +32,13 @@
 
       if (f.about_commitment_title) document.getElementById('commitmentTitle').textContent = f.about_commitment_title;
       if (f.about_commitment_text) document.getElementById('commitmentText').innerHTML = toParagraphs(f.about_commitment_text);
+
+      // Donate button
+      var donateEl = document.getElementById('aboutDonate');
+      if (donateEl) {
+        if (f.donate_url) donateEl.href = f.donate_url;
+        if (f.donate_text) donateEl.textContent = f.donate_text;
+      }
     })
     .catch(function () { /* fallback content stays */ });
 

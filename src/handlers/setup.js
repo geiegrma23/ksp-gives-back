@@ -38,6 +38,9 @@ const SEED_STATEMENTS = [
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_description', 'A program fostering support and connections for Veterans and their spouses \u2014 creating opportunities for meaningful interactions, shared experiences, and community engagement.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_cta_text', 'Get Involved Today'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_cta_link', 'mailto:info@mnquietvalor.com'],
+  // Donate
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'donate_text', 'Donate Now'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'donate_url', 'https://link.clover.com/urlshortener/9wHqSt'],
   // Mission
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'mission_label', 'Who We Are'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'mission_title', 'Our Mission'],

@@ -93,6 +93,21 @@ body {
   background: var(--red);
 }
 
+.site-nav__donate {
+  background: var(--red) !important;
+  color: var(--white) !important;
+  padding: 0.35rem 1.1rem !important;
+  border-radius: 2px;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  transition: background 0.3s ease, transform 0.2s ease !important;
+}
+.site-nav__donate:hover {
+  background: var(--red-glow) !important;
+  transform: translateY(-1px);
+}
+.site-nav__donate.active::after { display: none !important; }
+
 .site-nav__hamburger {
   display: none;
   background: none;
@@ -122,6 +137,10 @@ body {
   .site-nav__links a {
     padding: 0.8rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .site-nav__donate {
+    text-align: center;
+    margin-top: 0.5rem;
   }
 }
 
@@ -280,6 +299,34 @@ body {
   background: transparent;
   color: var(--red-glow);
   border-color: var(--red-glow);
+}
+
+.hero-donate {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gold);
+  background: transparent;
+  border: 2px solid var(--gold);
+  transition: all 0.3s ease;
+  margin-left: 1rem;
+}
+.hero-donate:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 /* ─── SECTION SHARED ─── */
@@ -531,6 +578,49 @@ section {
   color: rgba(255,255,255,0.7);
   margin-top: 1rem;
   text-transform: uppercase;
+}
+
+.banner-donate {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 2.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--red);
+  background: var(--white);
+  border: 2px solid var(--white);
+  transition: all 0.3s ease;
+}
+.banner-donate:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+/* ─── DONATE CTA (reusable) ─── */
+.donate-cta {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--white);
+  background: var(--red);
+  border: 2px solid var(--red);
+  transition: all 0.3s ease;
+}
+.donate-cta:hover {
+  background: transparent;
+  color: var(--red-glow);
+  border-color: var(--red-glow);
 }
 
 /* ─── FEATURED TESTIMONIALS (homepage) ─── */

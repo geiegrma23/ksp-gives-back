@@ -36,6 +36,8 @@
         { key: 'hero_cta_link', label: 'CTA Button Link', type: 'text' },
         { key: 'hero_bg_image', label: 'Background Image URL', type: 'image' },
         { key: 'hero_video_embed', label: 'Video Embed (YouTube/Vimeo iframe)', type: 'textarea' },
+        { key: 'donate_text', label: 'Donate Button Text', type: 'text' },
+        { key: 'donate_url', label: 'Donate URL (Clover link)', type: 'text' },
       ],
     },
     {

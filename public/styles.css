@@ -329,6 +329,22 @@ body {
   margin-top: 2rem;
 }
 
+.hero-impact-quote {
+  margin-top: 1.8rem;
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--gold);
+  opacity: 0.85;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 2px solid var(--gold);
+  padding-left: 1rem;
+  text-align: left;
+}
+
 /* ─── SECTION SHARED ─── */
 section {
   padding: 5rem 2rem;

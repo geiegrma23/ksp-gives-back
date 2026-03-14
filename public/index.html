@@ -159,6 +159,19 @@
     </div>
   </section>
 
+  <!-- ═══ UPCOMING EVENTS FLYOVER ═══ -->
+  <button class="events-fab" id="eventsFab" aria-label="Upcoming Events">&#x1F4C5;</button>
+  <div class="events-flyover" id="eventsFlyover">
+    <div class="events-flyover__header">
+      <h3>Upcoming Events</h3>
+      <button class="events-flyover__close" id="eventsFlyoverClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="events-flyover__body" id="eventsFlyoverBody">
+      <p class="events-flyover__loading">Loading events&hellip;</p>
+    </div>
+    <a href="/events/" class="events-flyover__all">View All Events &rarr;</a>
+  </div>
+
   <!-- ═══ NAV + FOOTER COMPONENTS ═══ -->
   <script src="/components/nav.js"></script>
   <script src="/components/footer.js"></script>
@@ -319,6 +332,68 @@
           }).join('');
         })
         .catch(function () {});
+    })();
+  </script>
+
+  <!-- ═══ EVENTS FLYOVER WIDGET ═══ -->
+  <script>
+    (function () {
+      var fab = document.getElementById('eventsFab');
+      var flyover = document.getElementById('eventsFlyover');
+      var closeBtn = document.getElementById('eventsFlyoverClose');
+      var body = document.getElementById('eventsFlyoverBody');
+      var loaded = false;
+
+      function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+      function toggle() {
+        var open = flyover.classList.toggle('events-flyover--open');
+        fab.classList.toggle('events-fab--hidden', open);
+        if (open && !loaded) loadEvents();
+      }
+
+      fab.addEventListener('click', toggle);
+      closeBtn.addEventListener('click', toggle);
+
+      document.addEventListener('click', function (e) {
+        if (flyover.classList.contains('events-flyover--open') &&
+            !flyover.contains(e.target) && e.target !== fab) {
+          toggle();
+        }
+      });
+
+      function loadEvents() {
+        fetch('/api/events')
+          .then(function (r) { return r.ok ? r.json() : []; })
+          .then(function (events) {
+            var today = new Date().toISOString().split('T')[0];
+            var upcoming = events.filter(function (e) { return e.date >= today; }).slice(0, 6);
+
+            if (!upcoming.length) {
+              body.innerHTML = '<p class="events-flyover__empty">No upcoming events right now. Check back soon!</p>';
+              loaded = true;
+              return;
+            }
+
+            body.innerHTML = upcoming.map(function (e) {
+              var d = new Date(e.date + 'T00:00:00');
+              var month = d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+              var day = d.getDate();
+              var time = e.time_start || '';
+              return '<a href="/events/#event-' + escHtml(e.slug) + '" class="flyover-event">' +
+                '<div class="flyover-event__date"><span class="flyover-event__month">' + escHtml(month) + '</span>' +
+                '<span class="flyover-event__day">' + day + '</span></div>' +
+                '<div class="flyover-event__info"><div class="flyover-event__title">' + escHtml(e.title) + '</div>' +
+                (time ? '<div class="flyover-event__time">' + escHtml(time) + '</div>' : '') +
+                (e.location ? '<div class="flyover-event__loc">' + escHtml(e.location) + '</div>' : '') +
+                '</div></a>';
+            }).join('');
+            loaded = true;
+          })
+          .catch(function () {
+            body.innerHTML = '<p class="events-flyover__empty">Unable to load events.</p>';
+          });
+      }
     })();
   </script>
 

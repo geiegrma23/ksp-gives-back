@@ -160,7 +160,7 @@
   </section>
 
   <!-- ═══ UPCOMING EVENTS FLYOVER ═══ -->
-  <button class="events-fab" id="eventsFab" aria-label="Upcoming Events">&#x1F4C5;</button>
+  <button class="events-fab" id="eventsFab" aria-label="Upcoming Events">&#x1F4C5;<span class="events-fab__badge" id="eventsFabBadge"></span></button>
   <div class="events-flyover" id="eventsFlyover">
     <div class="events-flyover__header">
       <h3>Upcoming Events</h3>
@@ -339,10 +339,24 @@
   <script>
     (function () {
       var fab = document.getElementById('eventsFab');
+      var badge = document.getElementById('eventsFabBadge');
       var flyover = document.getElementById('eventsFlyover');
       var closeBtn = document.getElementById('eventsFlyoverClose');
       var body = document.getElementById('eventsFlyoverBody');
       var loaded = false;
+
+      // Fetch count on page load to show badge
+      fetch('/api/events')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (events) {
+          var today = new Date().toISOString().split('T')[0];
+          var count = events.filter(function (e) { return e.date >= today; }).length;
+          if (count > 0) {
+            badge.textContent = count > 9 ? '9+' : count;
+            badge.classList.add('events-fab__badge--show');
+          }
+        })
+        .catch(function () {});
 
       function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 

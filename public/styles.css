@@ -325,8 +325,29 @@ body {
 .hero-goals {
   margin: 2rem auto 0;
   max-width: 650px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+.hero-goals-accent {
+  display: inline-block;
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.hero-goals-accent::before,
+.hero-goals-accent::after {
+  content: '\2605';
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% + 1px));
+  color: var(--gold);
+  font-size: 0.75rem;
+}
+.hero-goals-accent::before { left: -20px; }
+.hero-goals-accent::after { right: -20px; }
 .hero-goals-heading {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
@@ -334,13 +355,14 @@ body {
   color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 1rem;
+  text-align: center;
 }
 .hero-goals-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: inline-block;
-  text-align: center;
+  text-align: left;
 }
 .hero-goals-list li {
   font-family: 'Source Serif 4', serif;

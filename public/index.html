@@ -23,6 +23,10 @@
         A program fostering support and connections for Veterans and their spouses &mdash;
         creating opportunities for meaningful interactions, shared experiences, and community engagement.
       </p>
+      <div class="hero-goals" id="heroGoals" style="display:none;">
+        <p class="hero-goals-heading" data-content="hero_goals_heading">Our 2026 goals are:</p>
+        <ul class="hero-goals-list" data-collection="hero_goals"></ul>
+      </div>
       <div class="hero-cta-row">
         <a href="mailto:info@mnquietvalor.com" class="hero-cta" data-content="hero_cta_text" data-href="hero_cta_link">Get Involved Today</a>
         <a href="https://link.clover.com/urlshortener/9wHqSt" class="hero-donate" id="heroDonate" target="_blank" rel="noopener">Donate Now</a>
@@ -242,6 +246,15 @@
                 '<div class="goal-number">' + escHtml(g.number) + '</div>' +
                 '<div><h4>' + escHtml(g.title) + '</h4>' +
                 '<p>' + escHtml(g.description) + '</p></div></div>';
+            }).join('');
+          }
+
+          // Hydrate hero goals
+          var heroGoalsList = document.querySelector('[data-collection="hero_goals"]');
+          if (heroGoalsList && data.hero_goals && data.hero_goals.length) {
+            document.getElementById('heroGoals').style.display = '';
+            heroGoalsList.innerHTML = data.hero_goals.map(function (g) {
+              return '<li>' + escHtml(g.text) + '</li>';
             }).join('');
           }
 

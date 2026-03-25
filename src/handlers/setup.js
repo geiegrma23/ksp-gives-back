@@ -20,6 +20,7 @@ const SCHEMA_STATEMENTS = [
   `CREATE TABLE IF NOT EXISTS mission_cards (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, body TEXT NOT NULL, image_url TEXT NOT NULL DEFAULT '', sort_order INTEGER NOT NULL DEFAULT 0, updated_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS values_items (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, updated_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS goals (id INTEGER PRIMARY KEY AUTOINCREMENT, number TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, updated_at TEXT DEFAULT (datetime('now')))`,
+  `CREATE TABLE IF NOT EXISTS hero_goals (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, updated_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS nav_items (id INTEGER PRIMARY KEY AUTOINCREMENT, label TEXT NOT NULL, url TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, visible INTEGER NOT NULL DEFAULT 1, updated_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS media (id INTEGER PRIMARY KEY AUTOINCREMENT, key TEXT UNIQUE NOT NULL, filename TEXT NOT NULL, content_type TEXT NOT NULL, size INTEGER NOT NULL DEFAULT 0, created_at TEXT DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, slug TEXT UNIQUE NOT NULL, body TEXT NOT NULL DEFAULT '', date TEXT, end_date TEXT, time_start TEXT, time_end TEXT, location TEXT, image_url TEXT NOT NULL DEFAULT '', description TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published')), created_at TEXT DEFAULT (datetime('now')), updated_at TEXT DEFAULT (datetime('now')))`,
@@ -69,6 +70,11 @@ const SEED_STATEMENTS = [
   [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '06', 'Build Intergenerational Bonds', 'Partner with schools and youth groups to connect veterans with younger generations through mentorship and shared experiences.', 6],
   [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '07', 'Community Awareness', 'Build partnerships and engagement to strengthen awareness of veteran support needs across Minnesota.', 7],
   [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '08', 'Measure & Improve', 'Track program success through veteran feedback, service data, and impact assessments to continuously refine and expand support.', 8],
+  // Hero Goals
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_goals_heading', 'Our 2026 goals are:'],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Raise funds to provide vehicles', 1],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Accessibility to disabled Veteran\'s homes', 2],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Meaningful experiences for families', 3],
   // Contact
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_label', 'Reach Out'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_title', 'Contact Us'],

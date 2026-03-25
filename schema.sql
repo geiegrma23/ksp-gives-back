@@ -35,6 +35,13 @@ CREATE TABLE IF NOT EXISTS goals (
   updated_at  TEXT DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS hero_goals (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  text        TEXT NOT NULL,
+  sort_order  INTEGER NOT NULL DEFAULT 0,
+  updated_at  TEXT DEFAULT (datetime('now'))
+);
+
 -- ── Navigation ──
 
 CREATE TABLE IF NOT EXISTS nav_items (

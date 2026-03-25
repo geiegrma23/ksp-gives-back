@@ -321,6 +321,46 @@ body {
   color: var(--navy);
 }
 
+/* ─── HERO GOALS ─── */
+.hero-goals {
+  margin: 2rem auto 0;
+  max-width: 650px;
+  text-align: center;
+}
+.hero-goals-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero-goals-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  text-align: center;
+}
+.hero-goals-list li {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-light);
+  position: relative;
+  padding-left: 1.5em;
+}
+.hero-goals-list li::before {
+  content: '\2605';
+  color: var(--gold);
+  position: absolute;
+  left: 0;
+  font-size: 0.85em;
+}
+.hero-goals-list li + li {
+  margin-top: 0.25rem;
+}
+
 .hero-cta-row {
   display: flex;
   gap: 1rem;

@@ -11,7 +11,7 @@
   const menuToggle = document.getElementById('menuToggle');
   const sidebar = document.querySelector('.sidebar');
 
-  let data = { fields: {}, mission_cards: [], values_items: [], goals: [] };
+  let data = { fields: {}, mission_cards: [], values_items: [], goals: [], hero_goals: [] };
   let currentView = 'hero'; // tracks which section/crud view is active
   let mediaList = [];
   let eventsList = [];
@@ -38,7 +38,15 @@
         { key: 'hero_video_embed', label: 'Video Embed (YouTube/Vimeo iframe)', type: 'textarea' },
         { key: 'donate_text', label: 'Donate Button Text', type: 'text' },
         { key: 'donate_url', label: 'Donate URL (Clover link)', type: 'text' },
+        { key: 'hero_goals_heading', label: 'Goals Heading (gold text)', type: 'text' },
       ],
+      collection: {
+        name: 'hero_goals',
+        itemLabel: 'Goal',
+        fields: [
+          { key: 'text', label: 'Goal Text', type: 'text' },
+        ],
+      },
     },
     {
       id: 'mission',

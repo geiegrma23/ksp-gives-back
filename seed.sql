@@ -9,6 +9,15 @@ INSERT OR REPLACE INTO site_content (key, value) VALUES
   ('hero_cta_text',    'Get Involved Today'),
   ('hero_cta_link',    'mailto:info@mnquietvalor.com');
 
+INSERT OR REPLACE INTO site_content (key, value) VALUES
+  ('hero_goals_heading', 'Our 2026 goals are:');
+
+DELETE FROM hero_goals;
+INSERT INTO hero_goals (text, sort_order) VALUES
+  ('Raise funds to provide vehicles', 1),
+  ('Accessibility to disabled Veteran''s homes', 2),
+  ('Meaningful experiences for families', 3);
+
 -- ── Mission Section ──
 INSERT OR REPLACE INTO site_content (key, value) VALUES
   ('mission_label', 'Who We Are'),

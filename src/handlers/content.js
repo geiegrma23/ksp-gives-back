@@ -66,6 +66,17 @@ async function handlePut(request, env) {
     }
   }
 
+  if (Array.isArray(body.hero_goals)) {
+    await db.exec('DELETE FROM hero_goals');
+    if (body.hero_goals.length) {
+      const stmt = db.prepare(
+        `INSERT INTO hero_goals (text, sort_order, updated_at) VALUES (?, ?, datetime('now'))`
+      );
+      const batch = body.hero_goals.map((g, i) => stmt.bind(g.text, i + 1));
+      await db.batch(batch);
+    }
+  }
+
   if (Array.isArray(body.goals)) {
     await db.exec('DELETE FROM goals');
     if (body.goals.length) {
@@ -83,11 +94,12 @@ async function handlePut(request, env) {
 }
 
 async function loadAllContent(db) {
-  const [fieldsResult, cardsResult, valuesResult, goalsResult] = await db.batch([
+  const [fieldsResult, cardsResult, valuesResult, goalsResult, heroGoalsResult] = await db.batch([
     db.prepare('SELECT key, value FROM site_content'),
     db.prepare('SELECT id, title, body, sort_order FROM mission_cards ORDER BY sort_order'),
     db.prepare('SELECT id, title, description, sort_order FROM values_items ORDER BY sort_order'),
     db.prepare('SELECT id, number, title, description, sort_order FROM goals ORDER BY sort_order'),
+    db.prepare('SELECT id, text, sort_order FROM hero_goals ORDER BY sort_order'),
   ]);
 
   const fields = {};
@@ -100,5 +112,6 @@ async function loadAllContent(db) {
     mission_cards: cardsResult.results,
     values_items: valuesResult.results,
     goals: goalsResult.results,
+    hero_goals: heroGoalsResult.results,
   };
 }

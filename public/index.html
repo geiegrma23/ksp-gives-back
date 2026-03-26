@@ -262,7 +262,8 @@
           // Hero background image
           if (f.hero_bg_image) {
             var hero = document.getElementById('hero');
-            hero.style.backgroundImage = 'url(' + f.hero_bg_image + ')';
+            var bgUrl = f.hero_bg_image.startsWith('http') ? f.hero_bg_image : '/media/' + f.hero_bg_image;
+            hero.style.backgroundImage = 'url(' + bgUrl + ')';
             hero.classList.add('hero--has-bg');
           }
 

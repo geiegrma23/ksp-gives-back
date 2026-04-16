@@ -186,6 +186,34 @@
     <a href="/events/" class="events-flyover__all">View All Events &rarr;</a>
   </div>
 
+  <!-- ═══ FOLDS OF HONOR DONATION POPUP ═══ -->
+  <div class="donate-modal" id="donateModal" role="dialog" aria-modal="true" aria-labelledby="donateModalTitle">
+    <div class="donate-modal__card">
+      <div class="donate-modal__header">
+        <h2 class="donate-modal__title" id="donateModalTitle">Support <span>Folds of Honor</span></h2>
+        <button class="donate-modal__close" id="donateModalClose" aria-label="Close donation popup">&times;</button>
+      </div>
+      <div class="donate-modal__body">
+        <iframe
+          class="donate-modal__iframe"
+          id="donateModalIframe"
+          title="Folds of Honor donation page"
+          src="about:blank"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="donate-modal__fallback" id="donateModalFallback">
+          <h3>Donation Page</h3>
+          <p>The donation page can't be displayed here. Click the button below to open it in a new tab &mdash; every gift helps support the families of fallen and disabled service members.</p>
+          <a href="https://tinyurl.com/z5amy8zz" class="donate-modal__open-tab" target="_blank" rel="noopener">Open Donation Page</a>
+        </div>
+      </div>
+      <div class="donate-modal__footer">
+        <p class="donate-modal__footer-note">Page not loading? Open the donation site directly &rarr;</p>
+        <a href="https://tinyurl.com/z5amy8zz" class="donate-modal__open-tab" target="_blank" rel="noopener">Donate in New Tab</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ NAV + FOOTER COMPONENTS ═══ -->
   <script src="/components/nav.js"></script>
   <script src="/components/footer.js"></script>
@@ -356,6 +384,53 @@
           }).join('');
         })
         .catch(function () {});
+    })();
+  </script>
+
+  <!-- ═══ DONATION POPUP (once per session) ═══ -->
+  <script>
+    (function () {
+      var STORAGE_KEY = 'kspDonatePopupShown';
+      var DONATE_URL = 'https://tinyurl.com/z5amy8zz';
+      if (sessionStorage.getItem(STORAGE_KEY) === '1') return;
+
+      var modal = document.getElementById('donateModal');
+      var iframe = document.getElementById('donateModalIframe');
+      var fallback = document.getElementById('donateModalFallback');
+      var closeBtn = document.getElementById('donateModalClose');
+      if (!modal || !iframe || !closeBtn) return;
+
+      function open() {
+        iframe.src = DONATE_URL;
+        modal.classList.add('donate-modal--open');
+        document.body.style.overflow = 'hidden';
+        sessionStorage.setItem(STORAGE_KEY, '1');
+
+        // If the iframe hasn't fired a load event in 4s, assume it was blocked
+        // (X-Frame-Options / CSP) and show the fallback with direct link.
+        var loaded = false;
+        iframe.addEventListener('load', function () { loaded = true; }, { once: true });
+        setTimeout(function () {
+          if (!loaded) fallback.classList.add('donate-modal__fallback--show');
+        }, 4000);
+      }
+
+      function close() {
+        modal.classList.remove('donate-modal--open');
+        document.body.style.overflow = '';
+        iframe.src = 'about:blank';
+      }
+
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('donate-modal--open')) close();
+      });
+
+      // Delay slightly so the hero paints first, then pop it
+      setTimeout(open, 600);
     })();
   </script>
 

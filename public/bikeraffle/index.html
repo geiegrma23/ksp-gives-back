@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZT88CGWQLL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZT88CGWQLL');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bike Raffle — Official Rules — KSP Gives Back</title>
+  <meta name="description" content="Official Rules and Terms for the KSP Gives Back 2026 Indian Scout Bobber Motorcycle Raffle (MN Permit No. 95794).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* ─── BIKE RAFFLE PAGE ─── */
+    .raffle-intro {
+      padding: 4rem 2rem 2rem;
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+      text-align: center;
+    }
+    .raffle-intro__text {
+      color: var(--text-light);
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .raffle-intro__permit {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      padding: 0.4rem 1.1rem;
+      border: 1px solid rgba(197,164,78,0.4);
+      border-radius: 2px;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    /* Key facts grid */
+    .raffle-facts {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1px;
+      background: rgba(197,164,78,0.15);
+      border: 1px solid rgba(197,164,78,0.15);
+    }
+    .raffle-fact {
+      background: var(--navy);
+      padding: 1.4rem 1rem;
+    }
+    .raffle-fact__value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.02em;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+    .raffle-fact__label {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+      color: var(--steel);
+      margin-top: 0.35rem;
+    }
+
+    /* Rule blocks */
+    .raffle-rules {
+      padding: 3.5rem 2rem 4rem;
+      background: var(--navy);
+      position: relative;
+    }
+    .raffle-rules::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+      opacity: 0.3;
+    }
+    .rule-block {
+      max-width: 820px;
+      margin: 0 auto 2rem;
+      padding: 2rem 2.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(197,164,78,0.12);
+      border-left: 3px solid var(--red);
+    }
+    .rule-block:last-of-type { margin-bottom: 0; }
+    .rule-block__title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .rule-block__title span {
+      color: var(--red-glow);
+      margin-right: 0.5rem;
+    }
+    .rule-block__body {
+      color: var(--text-light);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .rule-block__body p { margin-bottom: 1rem; }
+    .rule-block__body p:last-child { margin-bottom: 0; }
+    .rule-block__body ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .rule-block__body ul li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.7rem;
+    }
+    .rule-block__body ul li:last-child { margin-bottom: 0; }
+    .rule-block__body ul li::before {
+      content: '\2605'; /* star */
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    /* Disclosure */
+    .raffle-disclosure {
+      max-width: 820px;
+      margin: 2.5rem auto 0;
+      padding: 1.6rem 2rem;
+      background: rgba(191,10,48,0.07);
+      border: 1px solid rgba(191,10,48,0.3);
+      color: var(--text-light);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+    .raffle-disclosure strong {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .raffle-intro { padding: 3rem 1.5rem 1.5rem; }
+      .raffle-rules { padding: 3rem 1.5rem; }
+      .rule-block { padding: 1.6rem 1.4rem; }
+      .raffle-fact__value { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="section-label">Official Rules &amp; Terms</div>
+    <h1 class="section-title">2026 Indian Scout Bobber Raffle</h1>
+    <div class="divider divider--center"></div>
+  </div>
+
+  <!-- Intro -->
+  <section class="raffle-intro">
+    <div class="container">
+      <span class="raffle-intro__permit">Minnesota Raffle Permit No. 95794</span>
+      <p class="raffle-intro__text">
+        This raffle is conducted by <strong>KSP Gives Back</strong>, a Minnesota charitable organization
+        (&ldquo;Sponsor&rdquo;), pursuant to Minnesota charitable gambling laws under Minnesota Raffle
+        Permit No.&nbsp;95794. By purchasing a raffle ticket, each participant agrees to abide by these
+        Official Rules and all applicable federal, state, and local laws and regulations.
+      </p>
+
+      <!-- Key facts at a glance -->
+      <div class="raffle-facts">
+        <div class="raffle-fact">
+          <div class="raffle-fact__value">$12,999</div>
+          <div class="raffle-fact__label">Prize Value</div>
+        </div>
+        <div class="raffle-fact">
+          <div class="raffle-fact__value">$100</div>
+          <div class="raffle-fact__label">Per Ticket</div>
+        </div>
+        <div class="raffle-fact">
+          <div class="raffle-fact__value">250</div>
+          <div class="raffle-fact__label">Tickets Max</div>
+        </div>
+        <div class="raffle-fact">
+          <div class="raffle-fact__value">Aug 11</div>
+          <div class="raffle-fact__label">Drawing &middot; 6:00 PM CT</div>
+        </div>
+        <div class="raffle-fact">
+          <div class="raffle-fact__value">1 in 250</div>
+          <div class="raffle-fact__label">Best Odds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules -->
+  <section class="raffle-rules">
+    <div class="container">
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>1.</span>Prize Description</h2>
+        <div class="rule-block__body">
+          <p>One (1) winner will receive an Indian Scout Bobber motorcycle with an approximate retail value of $12,999.00 (the &ldquo;Prize&rdquo;).</p>
+          <p>The motorcycle will be redeemed through MotoPrimo, Lakeville, Minnesota. The winner will coordinate directly with MotoPrimo to arrange pickup and any optional upgrades or accessories.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>2.</span>Ticket Sales</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>Ticket Price: $100.00 per ticket.</li>
+            <li>Maximum Number of Tickets Available: 250 tickets.</li>
+            <li>Once all 250 tickets have been sold, no additional tickets will be issued.</li>
+            <li>Tickets will be sold on a first-come, first-served basis until sold out or until the drawing is held.</li>
+            <li>Sponsor reserves the right to end ticket sales at any time in accordance with Minnesota law.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>3.</span>Eligibility</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>Participants must be eighteen (18) years of age or older at the time of ticket purchase.</li>
+            <li>Tickets may only be purchased by individuals who are legally permitted to participate under applicable laws.</li>
+            <li>Directors, officers, board members, volunteers, and employees of KSP Gives Back are eligible to participate unless otherwise prohibited by Minnesota law.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>4.</span>Payment Methods</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>Payment must be made in full at the time of purchase.</li>
+            <li>Cash or check payable to KSP Gives Back are accepted payment methods.</li>
+            <li>No refunds will be issued except as required by law or at the sole discretion of the Sponsor if the raffle is canceled.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>5.</span>Drawing Date and Procedure</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>The raffle drawing is scheduled to be held on Tuesday, August 11, 2026, at 6:00 PM Central Time.</li>
+            <li>The drawing may be broadcast or livestreamed by KSP Gives Back.</li>
+            <li>Participants do not need to be present to win.</li>
+            <li>The drawing will be conducted on the scheduled drawing date regardless of the number of tickets sold. Any revised drawing date will be publicly announced through KSP Gives Back communication channels and website.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>6.</span>Winner Selection and Notification</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>One winning ticket will be selected at random from all eligible tickets sold.</li>
+            <li>For privacy and security purposes, the winner&rsquo;s full name will not be announced publicly during the livestream or public announcements.</li>
+            <li>The winning ticket number, along with the winner&rsquo;s first name and last initial, will be announced.</li>
+            <li>KSP Gives Back representatives will make reasonable efforts to contact the winner using the contact information provided at the time of ticket purchase. The initial notification call is expected to be made no later than 6:10 PM Central Time on the date of the drawing.</li>
+            <li>If the winner cannot be reached immediately, KSP Gives Back will continue reasonable efforts to establish contact.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>7.</span>Prize Redemption</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>The winner must coordinate prize pickup directly with MotoPrimo in Lakeville, Minnesota.</li>
+            <li>The motorcycle must be accepted &ldquo;as awarded&rdquo; and may not be exchanged for cash or substituted for another model, except at the sole discretion of the Sponsor if circumstances beyond its control make the advertised prize unavailable.</li>
+            <li>Any optional upgrades, accessories, or modifications requested by the winner shall be arranged directly with MotoPrimo and shall be the sole financial responsibility of the winner.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>8.</span>Taxes, Fees, and Additional Costs</h2>
+        <div class="rule-block__body">
+          <ul>
+            <li>The winner is solely responsible for all applicable federal, state, and local taxes, title fees, registration fees, licensing costs, sales tax, insurance, and any other expenses associated with accepting and taking possession of the Prize.</li>
+            <li>Payment of all applicable taxes, fees, and any optional upgrade charges is due at the time the motorcycle is picked up from MotoPrimo.</li>
+            <li>KSP Gives Back and MotoPrimo are not responsible for any costs beyond providing the awarded motorcycle.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>9.</span>Odds of Winning</h2>
+        <div class="rule-block__body">
+          <p>The odds of winning depend on the total number of eligible tickets sold. If all tickets are sold, the odds of winning are 1 in 250.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>10.</span>Publicity and Privacy</h2>
+        <div class="rule-block__body">
+          <p>By accepting the Prize, the winner grants KSP Gives Back permission to use the winner&rsquo;s first name, last initial, city of residence, and likeness for promotional purposes related to the raffle without additional compensation, except where prohibited by law. KSP Gives Back will not publicly disclose the winner&rsquo;s full name without the winner&rsquo;s consent.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>11.</span>Release of Liability</h2>
+        <div class="rule-block__body">
+          <p>By participating, entrants agree to release, discharge, and hold harmless KSP Gives Back, its board members, officers, volunteers, sponsors, and affiliates, including MotoPrimo, from any and all claims, losses, injuries, damages, or liabilities arising out of participation in the raffle or acceptance, use, or misuse of the Prize.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>12.</span>Sponsor&rsquo;s Right to Modify or Cancel</h2>
+        <div class="rule-block__body">
+          <p>KSP Gives Back reserves the right to amend these Official Rules, postpone the drawing, or cancel the raffle if necessary due to circumstances beyond its reasonable control or as required by applicable law. In the event of cancellation, refunds will be handled in accordance with Minnesota law.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>13.</span>Compliance with Law</h2>
+        <div class="rule-block__body">
+          <p>This raffle is conducted pursuant to Minnesota charitable gambling laws and regulations. Any dispute arising under these Official Rules shall be governed by the laws of the State of Minnesota.</p>
+        </div>
+      </div>
+
+      <div class="rule-block">
+        <h2 class="rule-block__title"><span>14.</span>Contact Information</h2>
+        <div class="rule-block__body">
+          <p>For questions regarding the raffle or these Official Rules, please contact:</p>
+          <p>
+            <strong>KSP Gives Back</strong><br>
+            Website: <a href="https://kspgivesback.com" style="color:var(--gold);">KSPGivesBack.com</a><br>
+            Mail to: 2026 Indian Scout Bobber Raffle, 8100 Oxbow Creek Dr.<br>
+            Brooklyn Park, MN 55445
+          </p>
+        </div>
+      </div>
+
+      <!-- Required disclosure -->
+      <div class="raffle-disclosure">
+        <strong>Raffle Disclosure</strong>
+        Purchase of a raffle ticket is required to enter. Each ticket purchased constitutes one entry in the
+        drawing. The odds of winning depend upon the total number of eligible tickets sold. If all 250 tickets
+        are sold, the odds of winning are 1 in 250.
+      </div>
+
+    </div>
+  </section>
+
+  <script src="/components/nav.js"></script>
+  <script src="/components/footer.js"></script>
+</body>
+</html>

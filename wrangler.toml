@@ -2,9 +2,21 @@ name = "ksp-gives-back"
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 
+# ── Custom Domains ──
+# mnquietvalor.com is the primary domain; kspgivesback.com stays attached so the
+# worker can 301 its traffic to mnquietvalor.com (see src/index.js host check).
+routes = [
+  { pattern = "kspgivesback.com", custom_domain = true },
+  { pattern = "mnquietvalor.com", custom_domain = true },
+  { pattern = "www.mnquietvalor.com", custom_domain = true },
+]
+
 # ── Static Assets ──
+# run_worker_first so the domain redirect above applies to static pages too
 [assets]
 directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
 
 # ── Cloudflare D1 Database ──
 [[d1_databases]]

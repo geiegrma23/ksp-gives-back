@@ -1,4 +1,4 @@
-/* ─── KSP Gives Back — Shared Styles ─── */
+/* ─── Minnesota Quiet Valor — Shared Styles ─── */
 
 :root {
   --navy: #0A1628;
@@ -57,9 +57,21 @@ body {
   letter-spacing: 0.06em;
   color: var(--white);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 .site-nav__brand span {
   color: var(--gold);
+  margin-left: 0.28em;
+}
+.site-nav__logo {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  background: var(--white);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .site-nav__links {
@@ -249,6 +261,16 @@ body {
 }
 .hero-flag-accent::before { left: -20px; }
 .hero-flag-accent::after { right: -20px; }
+
+.hero-logo {
+  display: block;
+  width: clamp(110px, 16vw, 160px);
+  height: auto;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
 
 .hero-title {
   font-family: 'Oswald', sans-serif;

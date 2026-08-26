@@ -12,7 +12,7 @@
     nav.className = 'site-nav';
     nav.innerHTML =
       '<div class="site-nav__inner">' +
-        '<a href="/" class="site-nav__brand">KSP <span>Gives Back</span></a>' +
+        '<a href="/" class="site-nav__brand"><img class="site-nav__logo" src="/mqv-logo-nav.png" alt="">Minnesota <span>Quiet Valor</span></a>' +
         '<button class="site-nav__hamburger" aria-label="Toggle navigation">&#9776;</button>' +
         '<ul class="site-nav__links">' +
           items.filter(function (item) { return item.visible; }).map(function (item) {

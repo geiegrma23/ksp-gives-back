@@ -92,8 +92,12 @@ export default {
       if (request.method === 'GET' && !path.includes('.')) {
         const slug = path.replace(/^\/|\/$/g, '');
         if (slug && !['events','testimonials','financials','gallery','admin','about'].includes(slug)) {
-          const pageResponse = await serveDynamicPage(env, slug);
-          if (pageResponse) return pageResponse;
+          try {
+            const pageResponse = await serveDynamicPage(env, slug);
+            if (pageResponse) return pageResponse;
+          } catch {
+            // D1 lookup failure shouldn't take down static pages — fall through to assets
+          }
         }
       }
 

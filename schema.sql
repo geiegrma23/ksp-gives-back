@@ -133,6 +133,20 @@ CREATE TABLE IF NOT EXISTS submissions (
   created_at  TEXT DEFAULT (datetime('now'))
 );
 
+-- ── Pages (dynamic, admin-created) ──
+
+CREATE TABLE IF NOT EXISTS pages (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  title       TEXT NOT NULL,
+  slug        TEXT UNIQUE NOT NULL,
+  subtitle    TEXT NOT NULL DEFAULT '',
+  body        TEXT NOT NULL DEFAULT '',
+  image_url   TEXT NOT NULL DEFAULT '',
+  status      TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published')),
+  created_at  TEXT DEFAULT (datetime('now')),
+  updated_at  TEXT DEFAULT (datetime('now'))
+);
+
 -- ── Posts (blog, future) ──
 
 CREATE TABLE IF NOT EXISTS posts (

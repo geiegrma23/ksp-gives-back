@@ -6,9 +6,9 @@ compatibility_date = "2024-12-01"
 # mnquietvalor.com is the primary domain; kspgivesback.com stays attached so the
 # worker can 301 its traffic to mnquietvalor.com (see src/index.js host check).
 routes = [
-  { pattern = "kspgivesback.com", custom_domain = true },
   { pattern = "mnquietvalor.com", custom_domain = true },
   { pattern = "www.mnquietvalor.com", custom_domain = true },
+  { pattern = "kspgivesback.com", custom_domain = true },
 ]
 
 # ── Static Assets ──

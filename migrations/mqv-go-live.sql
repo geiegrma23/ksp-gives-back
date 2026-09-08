@@ -6,6 +6,15 @@
 -- Run (from repo root, AFTER merging the mqv-rebrand branch):
 --   npx wrangler d1 execute ksp-gives-back --remote --file=migrations/mqv-go-live.sql
 
+-- ── Retire KSP Gives Back-era content ──
+-- Bike raffle (page removed from repo; drawing was 2026-08-11)
+DELETE FROM nav_items WHERE url LIKE '/bikeraffle%';
+DELETE FROM pages WHERE slug = 'bikeraffle';
+-- Clear the calendar entirely (Bun Burner ride, Scout Bobber raffle, Hunter's raffle)
+DELETE FROM events;
+-- Unpublish the LifeCampUSA/summer-camp testimonial (kept as draft in admin, recoverable)
+UPDATE testimonials SET status = 'draft', featured = 0;
+
 -- ── Hero ──
 INSERT OR REPLACE INTO site_content (key, value) VALUES
   ('hero_title',       'Minnesota Quiet Valor'),

@@ -19,7 +19,7 @@
       // Header image
       if (f.about_image) {
         var imgEl = document.getElementById('aboutImage');
-        imgEl.innerHTML = '<img src="/media/' + esc(f.about_image) + '" alt="About KSP Gives Back">';
+        imgEl.innerHTML = '<img src="/media/' + esc(f.about_image) + '" alt="About Minnesota Quiet Valor">';
         imgEl.style.display = '';
       }
 

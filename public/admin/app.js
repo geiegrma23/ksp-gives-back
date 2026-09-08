@@ -1,4 +1,4 @@
-// KSP Gives Back — Admin Panel App (Expanded)
+// Minnesota Quiet Valor — Admin Panel App (Expanded)
 // Handles: content editor, nav, media library, events, testimonials, financials
 
 (function () {

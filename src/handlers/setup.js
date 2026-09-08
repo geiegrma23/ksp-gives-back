@@ -34,9 +34,9 @@ const SCHEMA_STATEMENTS = [
 
 const SEED_STATEMENTS = [
   // Hero
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_title', 'KSP Gives Back'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_subtitle', 'Minnesota: Bound by Service, Supported for Life'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_description', 'A program fostering support and connections for Veterans and their spouses \u2014 creating opportunities for meaningful interactions, shared experiences, and community engagement.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_title', 'Minnesota Quiet Valor'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_subtitle', 'Mobility. Dignity. Freedom.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_description', 'A 501(c)(3) nonprofit providing mobility for Minnesota Veterans and their spouses \u2014 removing barriers, restoring independence, and making a lasting impact.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_cta_text', 'Get Involved Today'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_cta_link', 'mailto:info@mnquietvalor.com'],
   // Donate
@@ -45,40 +45,35 @@ const SEED_STATEMENTS = [
   // Mission
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'mission_label', 'Who We Are'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'mission_title', 'Our Mission'],
-  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Mission', 'A program fostering support and connections for Veterans and their spouses. Creating opportunities for meaningful interactions, shared experiences, and community engagement.', 1],
-  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Purpose', 'Providing support and connections for Minnesota Veterans and their spouses.', 2],
-  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Vision', 'Creating valuable support for all Minnesota Veterans and their spouses.', 3],
+  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Mission', 'To provide mobility for Minnesota Veterans and their spouses.', 1],
+  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Purpose', 'To remove barriers and restore independence.', 2],
+  [`INSERT OR IGNORE INTO mission_cards (title, body, sort_order) VALUES (?, ?, ?)`, 'Vision', 'A future where every Minnesota Veteran and their spouse have freedom of mobility.', 3],
   // Values
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'values_label', 'What We Stand For'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'values_title', 'Our Values'],
-  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Honor', 'Respect and recognize the sacrifices of Veterans and their spouses.', 1],
-  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Service', 'Committed to supporting those who served.', 2],
-  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Community', 'Foster connection and belonging for Veterans & spouses.', 3],
-  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Compassion', 'Provide care and assistance with empathy and respect.', 4],
-  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Integrity', 'Uphold honesty and accountability in all we do.', 5],
+  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Honor', 'We recognize and respect the sacrifices made by Veterans and their families.', 1],
+  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Service', 'We place the needs of those we serve at the center of every decision.', 2],
+  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Community', 'We believe meaningful relationships strengthen individuals, families, and communities.', 3],
+  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Compassion', 'We lead with empathy, dignity, and respect.', 4],
+  [`INSERT OR IGNORE INTO values_items (title, description, sort_order) VALUES (?, ?, ?)`, 'Integrity', 'We act honestly, steward resources responsibly, and remain accountable to those who place their trust in us.', 5],
   // Banner
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'banner_text', 'Creating Valuable Support for All Minnesota Veterans and Their Spouses'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'banner_sub', '\u2605   Honor   \u2605   Service   \u2605   Community   \u2605'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'banner_text', 'A Future Where Every Minnesota Veteran and Their Spouse Has Freedom of Mobility'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'banner_sub', '\u2605   Mobility   \u2605   Dignity   \u2605   Freedom   \u2605'],
   // Goals
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'goals_label', 'What We Do'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'goals_title', 'Our Goals'],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '01', 'Reduce Veteran Isolation', 'Engage veterans annually in peer support programs, social events, and community connections to combat loneliness.', 1],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '02', 'Assist with Daily Living', 'Support veterans with household tasks, mobility assistance, and home modifications to promote independence.', 2],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '03', 'Build a Volunteer Network', 'Recruit and train volunteers to provide transportation, companionship, and household support.', 3],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '04', 'Secure Sustainable Funding', 'Obtain grants, donations, and corporate sponsorships to fully fund and expand services statewide.', 4],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '05', 'Strengthen Peer Support', 'Create a statewide Buddy System connecting veterans with peers and trained volunteers for check-ins and social engagement.', 5],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '06', 'Build Intergenerational Bonds', 'Partner with schools and youth groups to connect veterans with younger generations through mentorship and shared experiences.', 6],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '07', 'Community Awareness', 'Build partnerships and engagement to strengthen awareness of veteran support needs across Minnesota.', 7],
-  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '08', 'Measure & Improve', 'Track program success through veteran feedback, service data, and impact assessments to continuously refine and expand support.', 8],
+  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '01', 'Provide Mobility', 'Provide mobility scooters directly to eligible Minnesota Veterans and their spouses.', 1],
+  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '02', 'Restore Independence', 'Remove barriers so Veterans and their spouses can live with greater freedom and independence.', 2],
+  [`INSERT OR IGNORE INTO goals (number, title, description, sort_order) VALUES (?, ?, ?, ?)`, '03', 'Make a Lasting Impact', 'Identify a need, provide a solution, and responsibly steward every dollar entrusted to us.', 3],
   // Hero Goals
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'hero_goals_heading', 'Our 2026 goals are:'],
-  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Raise funds to provide vehicles', 1],
-  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Accessibility to disabled Veteran\'s homes', 2],
-  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Meaningful experiences for families', 3],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Provide mobility scooters to Minnesota Veterans and their spouses', 1],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Remove barriers and restore independence', 2],
+  [`INSERT OR IGNORE INTO hero_goals (text, sort_order) VALUES (?, ?)`, 'Build a strong foundation for future generations', 3],
   // Contact
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_label', 'Reach Out'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_title', 'Contact Us'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_intro', "We'd love to hear from you. Whether you're a veteran, a family member, or someone who wants to help \u2014 reach out anytime."],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_intro', "We'd love to hear from you. Whether you're a Veteran, a spouse, or someone who wants to help \u2014 reach out anytime."],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_address', '8100 Oxbow Creek Dr, Brooklyn Park, MN 55445'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_phone', '(218) 296-1103'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_email', 'info@mnquietvalor.com'],
@@ -86,9 +81,9 @@ const SEED_STATEMENTS = [
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_cta_text', 'Send Us a Message'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'contact_cta_link', 'mailto:info@mnquietvalor.com'],
   // Footer
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_copyright', '\u00A9 2025 KSP Gives Back \u2014 All Rights Reserved.'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_parent_text', 'A philanthropic program of'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_parent_name', 'KSP Technologies'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_copyright', '\u00A9 2026 Minnesota Quiet Valor \u2014 All Rights Reserved.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_parent_text', 'Founded with the support of'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_parent_name', 'KSP Supply Chain Solutions'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'footer_parent_link', 'https://kspfulfillment.com'],
   // Financials
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'financials_label', 'Transparency'],
@@ -96,14 +91,14 @@ const SEED_STATEMENTS = [
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'financials_intro', 'We believe in full transparency. Here you can review our financial highlights and download our reports.'],
   // About
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_label', 'Who We Are'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_title', 'KSP Gives Back'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_intro', 'KSP Gives Back is a charitable initiative and nonprofit arm of KSP Fulfillment, a Veteran-owned company. We strengthen communities by supporting Veteran-focused causes while also raising funds for select charitable organizations that align with our values of service, integrity, and impact.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_title', 'Minnesota Quiet Valor'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_intro', 'Minnesota Quiet Valor was founded on a simple belief: those who serve our nation — and their spouses — deserve the freedom to live with independence. Through our mobility program, we provide mobility scooters directly to eligible Minnesota Veterans and their spouses. Our approach is intentionally simple: identify a need, provide a solution, and make a lasting impact.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_mission_title', 'Our Mission'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_mission_text', 'KSP Gives Back, in partnership with KSP Fulfillment, strengthens communities by supporting Veteran-focused causes and select charitable organizations.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_mission_text', 'Our mission is to provide mobility for Minnesota Veterans and their spouses. Our purpose is to remove barriers and restore independence. Our vision is a future where every Minnesota Veteran and their spouse have freedom of mobility.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_title', 'Governance & Accountability'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_text', 'KSP Gives Back is governed by an independent Board of Directors responsible for strategic oversight, fiduciary stewardship, and mission accountability. The Board ensures compliance with all legal and ethical requirements and provides oversight of finances, policies, and organizational strategy.\n\nDay-to-day operations are managed by an Executive Director, who implements board-approved policies and reports directly to the Board. This governance structure ensures transparency, accountability, and a clear separation between oversight and operations.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_governance_text', 'Minnesota Quiet Valor is organized and operated exclusively for charitable purposes under Section 501(c)(3) of the Internal Revenue Code and the laws of the State of Minnesota. The organization is governed by an independent Board of Directors responsible for strategic oversight, fiduciary stewardship, and mission accountability.\n\nMinnesota Quiet Valor was founded through the vision and generosity of the leadership of KSP Supply Chain Solutions, a Veteran-owned business, which continues to support the organization through financial contributions, facilities, and in-kind resources. While that support is essential to our success, Minnesota Quiet Valor operates as an independent nonprofit corporation governed solely by its Board of Directors.'],
   [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_title', 'Our Commitment'],
-  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_text', 'As a Veteran-led organization, KSP Gives Back is committed to honoring service, strengthening communities, and responsibly stewarding the resources entrusted to us by donors, partners, and supporters.'],
+  [`INSERT OR REPLACE INTO site_content (key, value) VALUES (?, ?)`, 'about_commitment_text', 'Every decision we make begins with one question: how does this improve the lives of Veterans and their families? Minnesota Quiet Valor is committed to honoring every Veteran, putting the mission first, leading with integrity, and responsibly stewarding the resources entrusted to us by donors, partners, and supporters.'],
 ];
 
 const NAV_SEED = [

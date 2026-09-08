@@ -1,5 +1,6 @@
-// KSP Gives Back — Worker Router
-// Routes /api/* and /media/* to handler modules; static assets served via [assets]
+// Minnesota Quiet Valor (formerly KSP Gives Back) — Worker Router
+// Routes /api/* and /media/* to handler modules; static assets served via the ASSETS binding
+// (run_worker_first is enabled so the legacy-domain redirect below covers every request)
 
 import { jsonResponse } from './lib/response.js';
 import { handleContent } from './handlers/content.js';
@@ -15,6 +16,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+
+    // ── Legacy domain: kspgivesback.com traffic moves to mnquietvalor.com ──
+    const host = url.hostname.toLowerCase();
+    if (host === 'kspgivesback.com' || host.endsWith('.kspgivesback.com')) {
+      return Response.redirect('https://mnquietvalor.com' + url.pathname + url.search, 301);
+    }
+    if (host === 'www.mnquietvalor.com') {
+      return Response.redirect('https://mnquietvalor.com' + url.pathname + url.search, 301);
+    }
 
     try {
       // ── Content (existing) ──
@@ -82,13 +92,17 @@ export default {
       if (request.method === 'GET' && !path.includes('.')) {
         const slug = path.replace(/^\/|\/$/g, '');
         if (slug && !['events','testimonials','financials','gallery','admin','about'].includes(slug)) {
-          const pageResponse = await serveDynamicPage(env, slug);
-          if (pageResponse) return pageResponse;
+          try {
+            const pageResponse = await serveDynamicPage(env, slug);
+            if (pageResponse) return pageResponse;
+          } catch {
+            // D1 lookup failure shouldn't take down static pages — fall through to assets
+          }
         }
       }
 
-      // Static assets handled by the assets binding
-      return new Response('Not found', { status: 404 });
+      // Static assets — worker runs first, so serve them via the binding
+      return env.ASSETS.fetch(request);
     } catch (err) {
       return jsonResponse({ error: err.message }, 500);
     }

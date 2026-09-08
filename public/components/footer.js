@@ -8,11 +8,11 @@
     footer.className = 'site-footer';
     footer.innerHTML =
       '<div class="footer-stars">\u2605 \u2605 \u2605 \u2605 \u2605</div>' +
-      '<p>' + escHtml(f.footer_copyright || '\u00A9 2025 KSP Gives Back \u2014 All Rights Reserved.') + '</p>' +
+      '<p>' + escHtml(f.footer_copyright || '\u00A9 2026 Minnesota Quiet Valor \u2014 All Rights Reserved.') + '</p>' +
       '<p style="margin-top:0.4rem;font-size:0.8rem;color:rgba(138,155,176,0.6);">' +
-        escHtml(f.footer_parent_text || 'A philanthropic program of') + ' ' +
+        escHtml(f.footer_parent_text || 'Founded with the support of') + ' ' +
         '<a href="' + escHtml(f.footer_parent_link || 'https://kspfulfillment.com') + '" target="_blank" rel="noopener">' +
-        escHtml(f.footer_parent_name || 'KSP Technologies') + '</a>' +
+        escHtml(f.footer_parent_name || 'KSP Supply Chain Solutions') + '</a>' +
       '</p>' +
       '<div class="site-footer__links">' +
         '<a href="/">Home</a>' +

@@ -18,8 +18,13 @@ export default {
     const path = url.pathname;
 
     // ── Legacy domain: kspgivesback.com traffic moves to mnquietvalor.com ──
+    // TEMPORARILY PAUSED: mnquietvalor.com custom domain not yet attached (old
+    // GoDaddy parking DNS records need an approved override). Re-enable once
+    // mnquietvalor.com serves this worker, or kspgivesback.com visitors would
+    // be redirected to the parking page.
+    const REDIRECT_LEGACY = false;
     const host = url.hostname.toLowerCase();
-    if (host === 'kspgivesback.com' || host.endsWith('.kspgivesback.com')) {
+    if (REDIRECT_LEGACY && (host === 'kspgivesback.com' || host.endsWith('.kspgivesback.com'))) {
       return Response.redirect('https://mnquietvalor.com' + url.pathname + url.search, 301);
     }
     if (host === 'www.mnquietvalor.com') {

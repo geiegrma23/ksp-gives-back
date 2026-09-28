@@ -68,9 +68,9 @@ body {
 .site-nav__logo {
   height: 38px;
   width: 38px;
-  border-radius: 50%;
+  border-radius: 7px;
   background: var(--white);
-  object-fit: cover;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
@@ -267,7 +267,7 @@ body {
   width: clamp(110px, 16vw, 160px);
   height: auto;
   margin: 0 auto 1.5rem;
-  border-radius: 50%;
+  border-radius: 14px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
   position: relative;
 }

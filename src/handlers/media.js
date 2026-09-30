@@ -53,7 +53,12 @@ async function handlePublicList(env) {
       created_at: d.createdAt,
     }));
 
-  const merged = [...cmsItems, ...(legacyResult.results || [])];
+  // Legacy images were imported into the Payload media library (same
+  // filename = same file) — don't list them twice.
+  const cmsNames = new Set(cmsItems.map((m) => m.key));
+  const legacyItems = (legacyResult.results || []).filter((m) => !cmsNames.has(m.key));
+
+  const merged = [...cmsItems, ...legacyItems];
   merged.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
   return jsonResponse(merged);
 }

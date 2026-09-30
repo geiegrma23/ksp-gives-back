@@ -70,7 +70,8 @@ export default {
         const slug = path.replace(/^\/|\/$/g, '');
         if (slug && !['events', 'testimonials', 'financials', 'gallery', 'admin', 'about'].includes(slug)) {
           try {
-            const pageResponse = await serveDynamicPage(env, slug);
+            const allowDraft = url.searchParams.get('preview') === '1';
+            const pageResponse = await serveDynamicPage(env, slug, allowDraft);
             if (pageResponse) return pageResponse;
           } catch {
             // CMS lookup failure shouldn't take down static pages — fall through

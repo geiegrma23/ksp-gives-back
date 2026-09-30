@@ -196,6 +196,9 @@ export interface Page {
    * URL path, lowercase-with-dashes. Page serves at mnquietvalor.com/<slug>/. Reserved: about, events, testimonials, financials, gallery, admin
    */
   slug: string;
+  /**
+   * Use Preview (top right) to see a draft on the real site
+   */
   status: 'draft' | 'published';
   subtitle?: string | null;
   /**
@@ -206,21 +209,60 @@ export interface Page {
    * Legacy media filename
    */
   image_url?: string | null;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  /**
+   * Build the page from sections — drag to reorder
+   */
+  layout: (
+    | {
+        text: string;
+        size?: ('large' | 'small') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'heading';
+      }
+    | {
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'text';
+      }
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'image';
+      }
+    | {
+        label: string;
+        /**
+         * Link, e.g. https://… or mailto:…
+         */
+        url: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'button';
+      }
+    | {
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'divider';
+      }
+  )[];
   html?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -583,7 +625,47 @@ export interface PagesSelect<T extends boolean = true> {
   subtitle?: T;
   hero_image?: T;
   image_url?: T;
-  content?: T;
+  layout?:
+    | T
+    | {
+        heading?:
+          | T
+          | {
+              text?: T;
+              size?: T;
+              id?: T;
+              blockName?: T;
+            };
+        text?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              id?: T;
+              blockName?: T;
+            };
+        divider?:
+          | T
+          | {
+              id?: T;
+              blockName?: T;
+            };
+      };
   html?: T;
   updatedAt?: T;
   createdAt?: T;

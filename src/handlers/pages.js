@@ -3,10 +3,13 @@
 import { cmsDocs, mediaName } from '../lib/cms.js';
 
 // Serve a dynamic page as HTML: GET /:slug/
-export async function serveDynamicPage(env, slug) {
+// allowDraft: the CMS "Preview" button appends ?preview=1 so editors can see
+// drafts on the real site before publishing.
+export async function serveDynamicPage(env, slug, allowDraft = false) {
+  const statusFilter = allowDraft ? '' : '&where[status][equals]=published';
   const docs = await cmsDocs(
     env,
-    `/api/pages?limit=1&depth=1&where[slug][equals]=${encodeURIComponent(slug)}&where[status][equals]=published`
+    `/api/pages?limit=1&depth=1&where[slug][equals]=${encodeURIComponent(slug)}${statusFilter}`
   );
   const page = docs[0];
   if (!page) return null; // not found — let it fall through to static assets

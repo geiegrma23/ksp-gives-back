@@ -19,7 +19,11 @@ const ta = (name: string, opts: Record<string, unknown> = {}) => ({
 export const SiteContent: GlobalConfig = {
   slug: 'site-content',
   label: 'Site Content',
-  admin: { group: 'Site' },
+  admin: {
+    group: 'Site',
+    // Live Preview: the real homepage renders beside the form and updates as you type
+    livePreview: { url: 'https://mnquietvalor.com/?lp=1' },
+  },
   access: { read: anyone, update: authenticated },
   hooks: { afterChange: [purgeSiteCache] },
   fields: [

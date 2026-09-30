@@ -16,6 +16,14 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS",
   },
+  "kv_namespaces": [
+    // The public site's KV cache — content hooks purge it so edits go live immediately
+    {
+      "binding": "SITE_CACHE",
+      "id": "cfb8f1d2232446028d80b177502a171d",
+      "remote": true,
+    },
+  ],
   "d1_databases": [
     {
       "binding": "D1",
@@ -26,10 +34,10 @@
   ],
   "services": [
     // The service should match the "name" of your worker
-    // {
-    //   "binding": "WORKER_SELF_REFERENCE",
-    //   "service": "my-app"
-    // },
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "mqv-cms",
+    },
   ],
   "r2_buckets": [
     {
